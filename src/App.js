@@ -11,27 +11,35 @@ import { Component } from 'react';
 class Welcome extends Component {
   constructor(props) {
     super(props);
-    this.state = { stuff: "nothing loaded yet" };
+    this.state = { people: [], };
   }
 
   componentDidMount() {
     // Simple GET request using fetch
-    // fetch('http://127.0.0.1:8080/api/v1/factory/getAll')
-    //   .then(response => {
-    //     console.log(response);
-    //     console.log(response.text());
-    //   })
-    //   .then(data => {
-    //     console.log(data);
-    //     this.setState({ stuff: data });
-    //   });
+     fetch('http://localhost:8080/api/v1/factory/getAll')
+       .then(response => response.json() )
+       .then(data => {
+         console.log(data);
+         this.setState({
+           people: data // set the array to peoples
+         });
+       });
   }
 
-  render()
-  {
+  render() {
+
+    /* Temp list of people from site */
+    const peopleList = this.state.people.map((item, index) => (
+      <li key={index}>
+        <p>{item.name} has id {item.id}</p>
+      </li>
+    ));
+
     return (
       <Router>
       <div>
+
+        {/* Navigation bar */}
         <nav>
           <ul>
             <li>
@@ -46,6 +54,7 @@ class Welcome extends Component {
           </ul>
         </nav>
 
+        {/* React switches */}
         <Switch>
           <Route path="/about">
             <About />
@@ -57,8 +66,14 @@ class Welcome extends Component {
             <Home />
           </Route>
         </Switch>
+
+      {/* Temp print to screen */}
+      <ol>
+          {peopleList}
+      </ol>
+
       </div>
-    </Router>
+      </Router>
     );
   }
 }
