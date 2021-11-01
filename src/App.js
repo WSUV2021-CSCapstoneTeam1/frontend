@@ -16,7 +16,7 @@ class Welcome extends Component {
 
   componentDidMount() {
     // Simple GET request using fetch
-     fetch('http://localhost:8080/api/v1/factory/getAll')
+     fetch('http://3.138.136.135:8080/api/v1/template/getAll')
        .then(response => response.json() )
        .then(data => {
          console.log(data);
@@ -31,7 +31,7 @@ class Welcome extends Component {
     /* Temp list of people from site */
     const peopleList = this.state.people.map((item, index) => (
       <li key={index}>
-        <p>{item.name} has id {item.id}</p>
+        <p>{JSON.stringify(item)}</p>
       </li>
     ));
 
