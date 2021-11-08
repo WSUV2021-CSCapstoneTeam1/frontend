@@ -11,20 +11,29 @@ import { Component } from 'react';
 class Welcome extends Component {
   constructor(props) {
     super(props);
-    this.state = { people: [], };
+    this.state = { people: [] };
   }
 
-  componentDidMount() {
-    // Simple GET request using fetch
-     fetch('http://3.138.136.135:8080/api/v1/template/getAll')
-       .then(response => response.json() )
-       .then(data => {
-         console.log(data);
-         this.setState({
-           people: data // set the array to peoples
-         });
-       });
-  }
+    componentDidMount() {
+      // Simple GET request using fetch
+       const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+       fetch('http://3.138.136.135:8080/api/v1/template/getAll', headers)
+         .then(response => {
+          if (response.ok) {
+              return response.json()
+          }
+          throw response;
+         })
+         .then(data => {
+           console.log(data);
+           this.setState({
+             people: data // set the array to peoples
+           });
+         })
+         .catch(error => {
+           console.log(error);
+         })
+    }
 
   render() {
 
