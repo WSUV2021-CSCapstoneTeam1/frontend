@@ -17,9 +17,9 @@ class Welcome extends Component {
     componentDidMount() {
       // Simple GET request using fetch
        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-       fetch('http://3.138.136.135:8080/api/v1/template/getAll', headers)
+       fetch('http://34.220.46.204:8090/BackendApi-1.0-SNAPSHOT/webapi/template/get/all', headers)
          .then(response => {
-          if (response.ok) {
+           if (response.ok) {
               return response.json()
           }
           throw response;
@@ -38,11 +38,21 @@ class Welcome extends Component {
   render() {
 
     /* Temp list of people from site */
-    const peopleList = this.state.people.map((item, index) => (
-      <li key={index}>
-        <p>{JSON.stringify(item)}</p>
-      </li>
-    ));
+
+    var peopleList;
+    if (this.state.people.data == null) {
+      console.log('it\'s undefined')
+      peopleList = (<div>no data loaded</div>)
+    }
+    else {
+      console.log('it\'s something')
+      peopleList = this.state.people.data.map((item, index) => (
+        <li key={index}>
+          <p>{JSON.stringify(item)}</p>
+        </li>
+      ));
+    }
+
 
     return (
       <Router>
