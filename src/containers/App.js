@@ -47,10 +47,25 @@ class Welcome extends Component {
     else {
       console.log('it\'s something')
       peopleList = this.state.people.data.map((item, index) => (
-        <li key={index}>
-          <p>{JSON.stringify(item)}</p>
-        </li>
+        //<li key={index}>
+          //<p>{JSON.stringify(item)}</p>
+          Person(item, index)
+        //</li>
       ));
+    }
+
+    function Person() {
+        //console.log(arguments[0]);
+        return (
+            <div>
+            <h3> Template: {arguments[1]+1} </h3>
+            <ul key={arguments[1]}>
+                 <p>name: {arguments[0].name}</p>
+                 <p>extension: {arguments[0].extension}</p>
+                 <p>accountId: {arguments[0].accountId}</p>
+            </ul>
+            </div>
+        );
     }
 
 
