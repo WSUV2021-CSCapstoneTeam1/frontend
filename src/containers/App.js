@@ -8,67 +8,8 @@ import {
 import './App.css';
 import { Component } from 'react';
 
-class Welcome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { people: [] };
-  }
-
-    componentDidMount() {
-      // Simple GET request using fetch
-       const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-       fetch('http://34.220.46.204:8090/BackendApi-1.0-SNAPSHOT/webapi/template/get/all', headers)
-         .then(response => {
-           if (response.ok) {
-              return response.json()
-          }
-          throw response;
-         })
-         .then(data => {
-           console.log(data);
-           this.setState({
-             people: data // set the array to peoples
-           });
-         })
-         .catch(error => {
-           console.log(error);
-         })
-    }
-
+class RootPage extends Component {
   render() {
-
-    /* Temp list of people from site */
-
-    var peopleList;
-    if (this.state.people.data == null) {
-      console.log('it\'s undefined')
-      peopleList = (<div>no data loaded</div>)
-    }
-    else {
-      console.log('it\'s something')
-      peopleList = this.state.people.data.map((item, index) => (
-        //<li key={index}>
-          //<p>{JSON.stringify(item)}</p>
-          Person(item, index)
-        //</li>
-      ));
-    }
-
-    function Person() {
-        //console.log(arguments[0]);
-        return (
-            <div>
-            <h3> Template: {arguments[1]+1} </h3>
-            <ul key={arguments[1]}>
-                 <p>name: {arguments[0].name}</p>
-                 <p>extension: {arguments[0].extension}</p>
-                 <p>accountId: {arguments[0].accountId}</p>
-            </ul>
-            </div>
-        );
-    }
-
-
     return (
       <Router>
       <div>
@@ -80,34 +21,120 @@ class Welcome extends Component {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/siteflow/templates">SiteFlow Templates</Link>
             </li>
             <li>
-              <Link to="/contact">Contact</Link>
+              <Link to="/local/templates">Local Templates</Link>
             </li>
           </ul>
         </nav>
 
         {/* React switches */}
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/siteflow/templates">
+            <SiteFlowTemplateList />
           </Route>
-          <Route path="/contact">
-            <Contact />
+          <Route path="/local/templates">
+            <LocalTemplateList />
           </Route>
           <Route path="/">
             <Home />
           </Route>
         </Switch>
-
-      {/* Temp print to screen */}
-      <ol>
-          {peopleList}
-      </ol>
-
       </div>
       </Router>
+    );
+  }
+}
+
+class SiteFlowTemplateList extends Component {
+  /*
+  This is the page that displays a list of templates retrieved from SiteFlow.
+  */
+  constructor(props) {
+    super(props);
+    this.state = { templates: [] };
+  }
+
+  componentDidMount() {
+      // Simple GET request using fetch
+      const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+      fetch('http://34.220.46.204:8090/BackendApi-1.0-SNAPSHOT/webapi/template/get/all', headers)
+        .then(response => {
+          if (response.ok) {
+             return response.json()
+         }
+         throw response;
+        })
+        .then(data => {
+          console.log(data);
+          this.setState({
+            templates: data
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        })
+  }
+
+  render() {
+    /* List of templates from site from site */
+    var templates;
+    if (this.state.templates.data == null) {
+      console.log('it\'s undefined')
+      templates = (<div>no data loaded</div>)
+    }
+    else {
+      console.log('it\'s something')
+      templates = this.state.templates.data.map((item, index) => (
+        (<TemplateListItem templateData={item} />)
+      ));
+    }
+    
+    return (
+      <div>
+        <h2>SiteFlow Templates</h2>
+        <p>These are the templates loaded from SiteFlow.</p>
+        <ol>
+          {templates}
+        </ol>
+      </div>
+    );
+  }
+}
+
+class TemplateListItem extends Component {
+  /*
+  This component represents a single Template item, when displayed in a list.
+  */
+  constructor(props) {
+    super(props);
+    this.state = { templateData: props.templateData };
+  }
+
+  render() {
+    return (
+      <div style={ {border: 'solid'} }>
+        <ul key={this.props.templateData._id}>
+            <p>name: {this.props.templateData.name}</p>
+            <p>extension: {this.props.templateData.extension}</p>
+            <p>accountId: {this.props.templateData.accountId}</p>
+        </ul>
+      </div>
+  );
+  }
+}
+
+class LocalTemplateList extends Component {
+  /*
+  This is the page that displays a list of templates retrieved from the backend database.
+  */
+  render() {
+    return (
+      <div>
+        <h2>Local Templates</h2>
+        <p>These are the templates loaded from the backend database.</p>
+      </div>
     );
   }
 }
@@ -121,26 +148,8 @@ function Home() {
   );
 }
 
-function Contact() {
-  return (
-    <div>
-      <h2>Contact</h2>
-      <p>This is the contact page.</p>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h2>About</h2>
-      <p>This is a placeholder website.</p>
-    </div>
-  );
-}
-
 function App() {
-  return <Welcome/>
+  return <RootPage />
 }
 
 export default App;
