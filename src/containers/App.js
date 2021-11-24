@@ -11,6 +11,7 @@ import { Component } from 'react';
 import SiteFlowTemplateList from "./pages/SiteFlowTemplateList";
 import LocalTemplateList from './pages/LocalTemplateList';
 import AddLocalTemplateView from "./pages/AddLocalTemplateView";
+import ModifyLocalTemplateView from "./pages/ModifyLocalTemplateView";
 
 class RootPage extends Component {
   render() {
@@ -35,18 +36,28 @@ class RootPage extends Component {
 
         {/* React switches */}
         <Switch>
+
           <Route path="/siteflow/templates">
             <SiteFlowTemplateList />
           </Route>
+
+          {/*Testing*/}
+          <Route path="/local/templates/modify">
+            <ModifyLocalTemplateView />
+          </Route>
+
           <Route path="/local/templates/add">
               <AddLocalTemplateView />
           </Route>
+
           <Route path="/local/templates">
             <LocalTemplateList />
           </Route>
+
           <Route path="/">
             <Home />
           </Route>
+
         </Switch>
       </div>
       </Router>
