@@ -14,7 +14,7 @@ class LocalTemplateList extends Component {
     componentDidMount() {
         // Simple GET request using fetch
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch('http://34.220.46.204:8090/BackendApi-1.0-SNAPSHOT/rds/template/get/all', headers)
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/get/all', headers)
           .then(response => {
             if (response.ok) {
                return response.json()
