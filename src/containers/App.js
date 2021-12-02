@@ -19,15 +19,15 @@ class RootPage extends Component {
       <div>
 
         {/* Navigation bar */}
-        <nav className="navbar navbar-light bg-light navbar-expand-md">
-            <a href="/" class="navbar-brand">Factory Configuration</a>
+        <nav className="navbar fw-bold navbar-light bg-light navbar-expand-md">
+            <a href="/" class="navbar-brand">Factory Configurator</a>
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse" id="navbar">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a href="/siteflow/templates" class="nav-link">SiteFlow Templates</a></li>
-                    <li class="nav-item"><a href="/local/templates" class="nav-link">Local Templates</a></li>
+                    <li class="nav-item fw-light"><a href="/siteflow/templates" class="nav-link">SiteFlow Templates</a></li>
+                    <li class="nav-item fw-light"><a href="/local/templates" class="nav-link">Local Templates</a></li>
                 </ul>
             </div>
         </nav>
