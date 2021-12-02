@@ -60,7 +60,7 @@ class AddLocalTemplateView extends Component {
             }
         }
         return (
-            <div className="container">
+            <div>
                 <h2>Add Local Template</h2>
                 <p>Here is where you can add templates for SiteFlow.</p>
                 

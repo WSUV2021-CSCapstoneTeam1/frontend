@@ -50,7 +50,7 @@ class ModifyLocalTemplateView extends Component {
         }
 
         return (
-        <div className="container">
+        <div>
             <h2>Local Templates</h2>
             <p>Which template would you like to change? </p>
 

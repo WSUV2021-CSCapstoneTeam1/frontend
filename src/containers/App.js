@@ -33,31 +33,33 @@ class RootPage extends Component {
             </div>
         </nav>
 
-        {/* React switches */}
-        <Switch>
+          {/* React switches */}
+        <div className="container">
+          <Switch>
 
-          <Route path="/siteflow/templates">
-            <SiteFlowTemplateList />
-          </Route>
+            <Route path="/siteflow/templates">
+              <SiteFlowTemplateList />
+            </Route>
 
-          {/*Testing*/}
-          <Route path="/local/templates/modify">
-            <ModifyLocalTemplateView />
-          </Route>
+            {/*Testing*/}
+            <Route path="/local/templates/modify">
+              <ModifyLocalTemplateView />
+            </Route>
 
-          <Route path="/local/templates/add">
-              <AddLocalTemplateView />
-          </Route>
+            <Route path="/local/templates/add">
+                <AddLocalTemplateView />
+            </Route>
 
-          <Route path="/local/templates">
-            <LocalTemplateList />
-          </Route>
+            <Route path="/local/templates">
+              <LocalTemplateList />
+            </Route>
 
-          <Route path="/">
-            <Home />
-          </Route>
+            <Route path="/">
+              <Home />
+            </Route>
 
-        </Switch>
+          </Switch>
+        </div>
       </div>
       </Router>
     );
