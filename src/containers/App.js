@@ -12,6 +12,8 @@ import SiteFlowTemplateList from "./pages/SiteFlowTemplateList";
 import LocalTemplateList from './pages/LocalTemplateList';
 import AddLocalTemplateView from "./pages/AddLocalTemplateView";
 import ModifyLocalTemplateView from "./pages/ModifyLocalTemplateView";
+import DeleteLocalTemplateView from "./pages/DeleteLocalTemplateView";
+
 
 class RootPage extends Component {
   render() {
@@ -44,6 +46,11 @@ class RootPage extends Component {
             {/*Testing*/}
             <Route path="/local/templates/modify">
               <ModifyLocalTemplateView />
+            </Route>
+
+            {/*Testing*/}
+            <Route path="/local/templates/delete">
+              <DeleteLocalTemplateView />
             </Route>
 
             <Route path="/local/templates/add">

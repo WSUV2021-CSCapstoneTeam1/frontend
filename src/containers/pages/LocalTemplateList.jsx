@@ -60,6 +60,11 @@ class LocalTemplateList extends Component {
           <div className="mb-3">
               <Link to="templates/add" className="btn btn-primary">Add Template</Link>
           </div>
+
+          <div className="mb-3">
+              <Link to="templates/delete" className="btn btn-primary">Delete Template</Link>
+          </div>
+
         </div>
       );
     }
