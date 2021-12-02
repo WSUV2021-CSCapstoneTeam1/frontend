@@ -19,35 +19,36 @@ class RootPage extends Component {
       <div>
 
         {/* Navigation bar */}
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/siteflow/templates">SiteFlow Templates</Link>
-            </li>
-            <li>
-              <Link to="/local/templates">Local Templates</Link>
-            </li>
-          </ul>
+        <nav className="navbar navbar-light bg-light navbar-expand-md">
+            <a href="/" class="navbar-brand">Factory Configuration</a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a href="/siteflow/templates" class="nav-link">SiteFlow Templates</a></li>
+                    <li class="nav-item"><a href="/local/templates" class="nav-link">Local Templates</a></li>
+                </ul>
+            </div>
         </nav>
 
-        {/* React switches */}
-        <Switch>
-          <Route path="/siteflow/templates">
-            <SiteFlowTemplateList />
-          </Route>
-          <Route path="/local/templates/add">
-              <AddLocalTemplateView />
-          </Route>
-          <Route path="/local/templates">
-            <LocalTemplateList />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <div className="switches">
+            {/* React switches */}
+            <Switch>
+              <Route path="/siteflow/templates">
+                <SiteFlowTemplateList />
+              </Route>
+              <Route path="/local/templates/add">
+                  <AddLocalTemplateView />
+              </Route>
+              <Route path="/local/templates">
+                <LocalTemplateList />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+        </div>
       </div>
       </Router>
     );
