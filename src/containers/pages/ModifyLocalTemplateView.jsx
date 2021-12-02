@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import BootstrapAlert from '../components/BootstrapAlert';
+// import BootstrapAlert from '../components/BootstrapAlert';
 
 class ModifyLocalTemplateView extends Component {
     /*
@@ -8,41 +8,72 @@ class ModifyLocalTemplateView extends Component {
     */
     constructor(props) {
         super(props);
-        this.state = { responseCode: null };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            responseCode: null
+        };
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidMount() {}
 
-    handleSubmit(e) {
+    handleSearch(e) {
         e.preventDefault();
 
-        // need to sanitize input
+        // TODO: need to sanitize input
         var inputId = e.target.templateId.value;
 
+        console.log(`GET request to search id=${inputId}`);
+
+
+        // TODO: Check if you get anything back from the response
+        // Simple GET request using fetch
+        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        fetch(`http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/get?id=${inputId}`, headers)
+            .then(response => {
+               if (response.ok) {
+                  return response.json()
+               }
+               throw response;
+            })
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    template: data
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }
+
+    handleModify(e) {
+        e.preventDefault();
+        console.log("We are submitting!");
     }
 
     render() {
 
-        // TODO: look into what error codes we get from the backend
-        // Figure out what alert to display
-        let alert = null;
-        if (this.state.responseCode != null) {
-            if (this.state.responseCode === 200) {
-                alert = (<BootstrapAlert alertType='success' content='Template deleted successfully!' />);
-            }
-            else {
-                alert = (<BootstrapAlert alertType='danger' content={`Template deletion failed with code ${this.state.responseCode}`} />);
-            }
-        }
-
         return (
-        <div>
+        <div className="container">
             <h2>Local Templates</h2>
-            <p>Which template would you like to change? </p>
+            <p>Which template would you like to modify? </p>
 
-            <form onSubmit={this.handleSubmit}>
+            {/* Search Template Handler */}
+            <form onSubmit={this.handleSearch}>
+                {/* Input ID of template */}
+                <div className="mb-3">
+                    <label htmlFor="templateId" className="form-label">Template ID</label>
+                    <input type="text" className="form-control" id="templateId" name="templateId"></input>
+                </div>
+                {/* Add Button */}
+                <div className="mb-3">
+                    <button type="submit" className="btn btn-primary">Delete Template</button>
+                </div>
             </form>
+
+            {/* Show Template Data in Fields */}
+
         </div>
         );
     }
