@@ -11,13 +11,13 @@ class TemplateListItem extends Component {
   
     render() {
       return (
-        <div style={ {border: 'solid'} }>
-          <ul key={this.props.templateData._id}>
+        <li style={{ border: 'solid' }}>
+          <div>
               <p>name: {this.props.templateData.name}</p>
               <p>extension: {this.props.templateData.extension}</p>
               <p>accountId: {this.props.templateData.accountId}</p>
-          </ul>
-        </div>
+          </div>
+        </li>
     );
     }
 }

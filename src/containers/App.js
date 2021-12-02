@@ -20,18 +20,17 @@ class RootPage extends Component {
       <div>
 
         {/* Navigation bar */}
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/siteflow/templates">SiteFlow Templates</Link>
-            </li>
-            <li>
-              <Link to="/local/templates">Local Templates</Link>
-            </li>
-          </ul>
+        <nav className="navbar fw-bold navbar-light bg-light navbar-expand-md">
+            <a href="/" className="navbar-brand">Factory Configurator</a>
+            <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="navbar-collapse collapse" id="navbar">
+                <ul className="navbar-nav">
+                    <li className="nav-item fw-light"><a href="/siteflow/templates" className="nav-link">SiteFlow Templates</a></li>
+                    <li className="nav-item fw-light"><a href="/local/templates" className="nav-link">Local Templates</a></li>
+                </ul>
+            </div>
         </nav>
 
         {/* React switches */}
