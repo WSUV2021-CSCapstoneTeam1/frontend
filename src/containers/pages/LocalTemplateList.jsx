@@ -35,15 +35,15 @@ class LocalTemplateList extends Component {
 
     render() {
     /* List of templates from database */
-      var templates;
+      var templates = [];
       if (this.state.templates.data == null) {
-        console.log('it\'s undefined')
-        templates = (<div>no data loaded</div>)
+        console.log('it\'s undefined');
+        templates = null;
       }
       else {
-        console.log('it\'s something')
+        console.log('it\'s something');
         templates = this.state.templates.data.map((item, index) => (
-          (<TemplateListItem templateData={item} />)
+          (<TemplateListItem templateData={item} key={item.id} />)
         ));
       }
 
@@ -51,9 +51,10 @@ class LocalTemplateList extends Component {
         <div>
           <h2>Local Templates</h2>
           <p>These are the templates loaded from the backend database.</p>
-          <ol>
+          {templates == null ? (<p>No templates loaded</p>) : (null)}
+          <ul>
             {templates}
-          </ol>
+          </ul>
 
           {/* Add Button */}
           <div className="mb-3">

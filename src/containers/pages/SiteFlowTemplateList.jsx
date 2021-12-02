@@ -35,13 +35,13 @@ class SiteFlowTemplateList extends Component {
       /* List of templates from site from site */
       var templates;
       if (this.state.templates.data == null) {
-        console.log('it\'s undefined')
-        templates = (<div>no data loaded</div>)
+        console.log('it\'s undefined');
+        templates = null;
       }
       else {
-        console.log('it\'s something')
+        console.log('it\'s something');
         templates = this.state.templates.data.map((item, index) => (
-          (<TemplateListItem templateData={item} />)
+          (<TemplateListItem templateData={item} key={item._id} />)
         ));
       }
       
@@ -49,9 +49,10 @@ class SiteFlowTemplateList extends Component {
         <div>
           <h2>SiteFlow Templates</h2>
           <p>These are the templates loaded from SiteFlow.</p>
-          <ol>
+          {templates == null ? (<p>No templates loaded</p>) : (null)}
+          <ul>
             {templates}
-          </ol>
+          </ul>
         </div>
       );
     }
