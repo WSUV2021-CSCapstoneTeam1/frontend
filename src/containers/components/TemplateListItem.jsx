@@ -34,9 +34,9 @@ class TemplateListItem extends Component {
       return (
         <div className="card m-4">
           <div className="card-body">
-            <Link to="templates/add" className="btn btn-primary float-end">Edit</Link>
+            <Link to="templates/add" className="btn btn-primary float-end"><i class="fas fa-edit"></i></Link>
 
-            <button className="btn btn-danger float-end" onClick={this.handleDelete}>Delete</button>
+            <button className="btn btn-danger float-end" onClick={this.handleDelete}><i class="fas fa-trash-alt"></i></button>
             
             <h5 className="card-title">{name}</h5>
             <h6 className="card-subtitle mb-2 text-muted">Account ID {this.props.templateData.accountId}</h6>
