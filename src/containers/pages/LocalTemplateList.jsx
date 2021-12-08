@@ -55,18 +55,11 @@ class LocalTemplateList extends Component {
 
       return (
         <div>
+          <Link to="templates/add" className="btn btn-success float-end"><i className="fas fa-plus"></i> New Template</Link>
           <h2>Local Templates</h2>
           <p>These are the templates loaded from the backend database.</p>
           {templates == null ? (<p>No templates loaded</p>) : (templates)}
 
-          {/* Add Button */}
-          <div className="mb-3">
-              <Link to="templates/add" className="btn btn-primary">Add Template</Link>
-          </div>
-
-          <div className="mb-3">
-              <Link to="templates/delete" className="btn btn-primary">Delete Template</Link>
-          </div>
 
         </div>
       );
