@@ -8,11 +8,46 @@ class AddLocalTemplateView extends Component {
     */
     constructor(props) {
         super(props);
-        this.state = { responseCode: null };
+        this.state = { responseCode: null, mode: 'new', id: -1000, data: {} };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-    componentDidMount() {}
+    componentDidMount() {
+        console.log(this.props);
+
+        if (Object.keys(this.props.match.params).length !== 0)
+        {
+            console.log(`let's edit, the ID is ${this.props.match.params.id}`);
+            this.setState({ mode: 'edit', id: this.props.match.params.id });
+
+            // Let's load the default data
+            let id = this.props.match.params.id;
+            let url = `http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/get?id=${id}`;
+            console.log(url);
+            const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+            fetch(url, headers)
+              .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                throw response;
+              })
+              .then(data => {
+                console.log(data);
+                this.setState({
+                  data: data.data[0]
+                });
+              })
+              .catch(error => {
+                console.log(error);
+              })
+        }
+        else
+        {
+            console.log("make a new one");
+            this.setState({ mode: 'new' });
+        }
+    }
     
     handleSubmit(e) {
         e.preventDefault(); // prevent the form from submitting normally
@@ -59,10 +94,15 @@ class AddLocalTemplateView extends Component {
                 alert = (<BootstrapAlert alertType='danger' content={`Template creation failed with code ${this.state.responseCode}`} />);
             }
         }
+
+        let inEditMode = this.state.mode === 'edit';
+
+        console.log(this.state.data);
+
         return (
             <div>
-                <h2>Add Local Template</h2>
-                <p>Here is where you can add templates for SiteFlow.</p>
+                <h2>{inEditMode ? 'Edit' : 'Add'} Local Template</h2>
+                <p>{inEditMode ? `Edit the template with ID ${this.state.id}` : 'Add a new template'} for SiteFlow.</p>
                 
                 <form onSubmit={this.handleSubmit}>
                     {/* Account ID */}
