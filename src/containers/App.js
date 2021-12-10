@@ -1,8 +1,7 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import './App.css';
@@ -11,11 +10,14 @@ import { Component } from 'react';
 import SiteFlowTemplateList from "./pages/SiteFlowTemplateList";
 import LocalTemplateList from './pages/LocalTemplateList';
 import AddLocalTemplateView from "./pages/AddLocalTemplateView";
-import ModifyLocalTemplateView from "./pages/ModifyLocalTemplateView";
-import DeleteLocalTemplateView from "./pages/DeleteLocalTemplateView";
 
 
 class RootPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { id: 0 };
+  }
+
   render() {
     return (
       <Router>
@@ -36,34 +38,17 @@ class RootPage extends Component {
         </nav>
 
           {/* React switches */}
-        <div className="container">
+        <div className="container mt-3">
           <Switch>
+              <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
 
-            <Route path="/siteflow/templates">
-              <SiteFlowTemplateList />
-            </Route>
+              {/*Testing*/}
+              <Route path="/local/templates/modify/:id" component={AddLocalTemplateView} />
 
-            {/*Testing*/}
-            <Route path="/local/templates/modify">
-              <ModifyLocalTemplateView />
-            </Route>
-
-            {/*Testing*/}
-            <Route path="/local/templates/delete">
-              <DeleteLocalTemplateView />
-            </Route>
-
-            <Route path="/local/templates/add">
-                <AddLocalTemplateView />
-            </Route>
-
-            <Route path="/local/templates">
-              <LocalTemplateList />
-            </Route>
-
-            <Route path="/">
-              <Home />
-            </Route>
+              {/*Testing*/}
+              <Route path="/local/templates/add" component={AddLocalTemplateView} />
+              <Route path="/local/templates" component={LocalTemplateList} />
+              <Route path="/" component={Home} />
 
           </Switch>
         </div>
