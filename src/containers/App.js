@@ -7,9 +7,11 @@ import {
 import './App.css';
 import { Component } from 'react';
 
+import SiteFlowProductList from "./pages/SiteFlowProductList";
 import SiteFlowTemplateList from "./pages/SiteFlowTemplateList";
 import LocalTemplateList from './pages/LocalTemplateList';
 import AddLocalTemplateView from "./pages/AddLocalTemplateView";
+import SiteFlowSKUList from "./pages/SiteFlowSKUList";
 
 
 class RootPage extends Component {
@@ -30,8 +32,10 @@ class RootPage extends Component {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="navbar-collapse collapse" id="navbar">
-                <ul className="navbar-nav">
-                    <li className="nav-item fw-light"><a href="/siteflow/templates" className="nav-link">SiteFlow Templates</a></li>
+              <ul className="navbar-nav">
+                    <li className="nav-item fw-light"><a href="/siteflow/products" className="nav-link">Site Flow Products</a></li>
+                    <li className="nav-item fw-light"><a href="/siteflow/sku" className="nav-link">Site Flow SKUs</a></li>
+                    <li className="nav-item fw-light"><a href="/siteflow/templates" className="nav-link">Site Flow Templates</a></li>
                     <li className="nav-item fw-light"><a href="/local/templates" className="nav-link">Local Templates</a></li>
                 </ul>
             </div>
@@ -39,7 +43,9 @@ class RootPage extends Component {
 
           {/* React switches */}
         <div className="container mt-3">
-          <Switch>
+            <Switch>
+              <Route path="/siteflow/products" component={SiteFlowProductList} />
+              <Route path="/siteflow/sku" component={SiteFlowSKUList} />
               <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
 
               {/*Testing*/}
