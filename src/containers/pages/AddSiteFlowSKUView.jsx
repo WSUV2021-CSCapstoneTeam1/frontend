@@ -14,41 +14,8 @@ class AddSiteFlowSKUView extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-
-        if (Object.keys(this.props.match.params).length !== 0)
-        {
-            console.log(`let's edit, the ID is ${this.props.match.params.id}`);
-            this.setState({ mode: 'edit', id: this.props.match.params.id });
-
-            // Let's load the default data
-            let id = this.props.match.params.id;
-            let url = `http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/get?id=${id}`;
-            console.log(url);
-            const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-            fetch(url, headers)
-              .then(response => {
-                if (response.ok) {
-                    return response.json()
-                }
-                throw response;
-              })
-              .then(data => {
-
-                console.log(data);
-                this.setState({
-                  data: data.data[0]
-                });
-              })
-              .catch(error => {
-                console.log(error);
-              })
-        }
-        else
-        {
-            console.log("make a new one");
-            this.setState({ mode: 'new' });
-        }
+        this.setState({ mode: 'new' }); // leave in case we want to change a SKU later
+        console.log(this.state);
     }
 
     handleSubmit(e) {
@@ -68,46 +35,22 @@ class AddSiteFlowSKUView extends Component {
             contentType: e.target.contentType.value
         };
 
-        if (this.state.mode === 'new')
-        {
-            console.log(JSON.stringify(newTemplateData));
-            console.log('Going to make the POST request...');
+        console.log(JSON.stringify(newTemplateData));
+        console.log('Going to make the POST request...');
 
-            fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/post', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newTemplateData)
-            })
-                .then((response) => {
-                    console.log(response);
-                console.log(`Got response from the POST request with ${response.status}`);
-                console.log(`this state is ${this.state}`);
-                this.setState({ responseCode: response.status });
-            });
-        }
-
-        else if (this.state.mode === 'edit')
-        {
-            console.log(JSON.stringify(newTemplateData));
-            console.log('Going to make the POST request...');
-
-            fetch(`http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/update?id=${this.state.id}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newTemplateData)
-            })
-                .then((response) => {
-                    console.log(response);
-                console.log(`Got response from the POST request with ${response.status}`);
-                console.log(`this state is ${this.state}`);
-                    this.setState({ responseCode: response.status });
-            });
-        }
-
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newTemplateData)
+        })
+            .then((response) => {
+                console.log(response);
+            console.log(`Got response from the POST request with ${response.status}`);
+            console.log(`this state is ${this.state}`);
+            this.setState({ responseCode: response.status });
+        });
     }
 
     render() {
@@ -125,14 +68,12 @@ class AddSiteFlowSKUView extends Component {
             }
         }
 
-
-
-        console.log(this.state.data);
+//         console.log(this.state.data);
 
         return (
             <div>
-                <h2>{inEditMode ? 'Edit' : 'Add'} Local Template</h2>
-                <p>{inEditMode ? `Edit the template with ID ${this.state.id}` : 'Add a new template'} for SiteFlow.</p>
+                <h2>Add SKU</h2>
+                <p>Add new SKU for SiteFlow.</p>
 
                 <form onSubmit={this.handleSubmit}>
                     {/* Name */}
@@ -207,7 +148,7 @@ class AddSiteFlowSKUView extends Component {
 
                     {/* Add Button */}
                     <div className="mb-3">
-                        <button type="submit" className="btn btn-primary">{inEditMode ? 'Edit': 'Add'} Template</button>
+                        <button type="submit" className="btn btn-primary">Add SKU</button>
                     </div>
 
 
