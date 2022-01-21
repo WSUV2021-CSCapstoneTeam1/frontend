@@ -22,20 +22,22 @@ class AddSiteFlowSKUView extends Component {
         e.preventDefault(); // prevent the form from submitting normally
 
         // Build the JSON object we want to send to the backend
-        var newTemplateData = {
-            accountId: e.target.accountId.value,
+        var newSkuData = {
+
+            packageId: e.target.packageId.value, // need to add this
+            code: e.target.skuCode.value,
+            description: e.target.description.value,
+            productId: e.target.productId.value,
             active: e.target.active.checked,
-            globalRead: e.target.globalRead.checked,
-            globalResourceName: e.target.globalResourceName.value,
-            name: e.target.name.value,
-            lookup: e.target.lookup.value,
-            type: e.target.type.value,
-            text: e.target.text.value,
-            extension: e.target.extension.value,
-            contentType: e.target.contentType.value
+            maxItems: e.target.maxItems.value,
+            minSLA: e.target.minSLA.value,
+            SLADuration: e.target.SLADuration.value,
+            unitCost: e.target.unitCost.value,
+            unitPrice: e.target.unitPrice.value
+
         };
 
-        console.log(JSON.stringify(newTemplateData));
+        console.log(JSON.stringify(newSkuData));
         console.log('Going to make the POST request...');
 
         fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/post', {
@@ -43,7 +45,7 @@ class AddSiteFlowSKUView extends Component {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newTemplateData)
+            body: JSON.stringify(newSkuData)
         })
             .then((response) => {
                 console.log(response);
@@ -68,24 +70,22 @@ class AddSiteFlowSKUView extends Component {
             }
         }
 
-//         console.log(this.state.data);
-
         return (
             <div>
                 <h2>Add SKU</h2>
                 <p>Add new SKU for SiteFlow.</p>
 
                 <form onSubmit={this.handleSubmit}>
-                    {/* Name */}
+                    {/* Sku Code */}
                     <div className="mb-3">
-                        <label htmlFor="name" className="form-label">Name</label>
-                        <input type="text" className="form-control" id="name" name="name" defaultValue={ inEditMode ? this.state.data.name : ''}></input>
+                        <label htmlFor="skuCode" className="form-label">SKU Code</label>
+                        <input type="text" className="form-control" id="skuCode" name="skuCode" defaultValue={ inEditMode ? this.state.data.skuCode : ''}></input>
                     </div>
 
-                    {/* Account ID */}
+                    {/* Description */}
                     <div className="mb-3">
-                        <label htmlFor="accountId" className="form-label">Account ID</label>
-                        <input type="text" className="form-control" id="accountId" name="accountId" defaultValue={ inEditMode ? this.state.data.accountId : ''}></input>
+                        <label htmlFor="description" className="form-label">Description</label>
+                        <input type="text" className="form-control" id="description" name="description" defaultValue={ inEditMode ? this.state.data.description : ''}></input>
                     </div>
 
                     {/* Active */}
@@ -94,54 +94,46 @@ class AddSiteFlowSKUView extends Component {
                         <label htmlFor="active" className="form-check-label">Active</label>
                     </div>
 
-                    {/* Global Read */}
+                    {/* MaxItems - Not done */}
                     <div className="mb-3 form-check">
-                        <input className="form-check-input" type="checkbox" value="" id="globalRead" name="globalRead" defaultChecked={this.state.data.globalRead}></input>
-                        <label htmlFor="globalRead" className="form-check-label">Global Read</label>
+                        <input className="form-check-input" type="number" min="0" value="" data-bind="value:maxItems"
+                            id="maxItems" name="maxItems" defaultChecked={this.state.data.maxItems}></input>
+                        <label htmlFor="maxItems" className="form-check-label">Max Items</label>
                     </div>
 
-                    {/* Global Resource Name */}
+                    {/* MinSLA */}
                     <div className="mb-3">
-                        <label htmlFor="globalResourceName" className="form-label">Global Resource Name</label>
-                        <input type="text" className="form-control" id="globalResourceName" name="globalResourceName" defaultValue={ inEditMode ? this.state.data.globalResourceName : ''}></input>
+                        <label htmlFor="minSLA" className="form-label">Min SLA</label>
+                        <input type="text" className="form-control" id="minSLA" name="minSLA" defaultValue={ inEditMode ? this.state.data.minSLA : ''}></input>
                     </div>
 
-                    {/* Lookup */}
+                    {/* SLADuration */}
                     <div className="mb-3">
-                        <label htmlFor="lookup" className="form-label">Lookup</label>
-                        <input type="text" className="form-control" id="lookup" name="lookup" defaultValue={ inEditMode ? this.state.data.lookup : ''}></input>
+                        <label htmlFor="SLADuration" className="form-label">SLA Days</label>
+                        <input type="text" className="form-control" id="SLADuration" name="SLADuration" defaultValue={ inEditMode ? this.state.data.SLADuration : ''}></input>
                     </div>
 
-                    {/* Type */}
+                    {/* ProductId */}
+                    {/* Need to get information on all products - this is temp */}
                     <div className="mb-3">
-                        <label htmlFor="type" className="form-label">Type</label>
-                        <select className="form-select" id="type" name="type" defaultValue={ inEditMode ? this.state.data.type : 'html'}>
-                            <option value="html">HTML</option>
-                            <option value="xml">XML</option>
-                            <option value="svg">SVG</option>
-                            <option value="json">JSON</option>
-                            <option value="zpl">ZPL</option>
+                        <label htmlFor="productId" className="form-label">Product</label>
+                        <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
+                            <option value="product1">Product 1</option>
+                            <option value="product2">Product 2</option>
                         </select>
                     </div>
 
-                    {/* Text */}
+                    {/* unitCost */}
                     <div className="mb-3">
-                        <label htmlFor="text" className="form-label">Text</label>
-                        <textarea className="form-control" id="text" name="text" rows="12" defaultValue={ inEditMode ? this.state.data.text : ''}></textarea>
+                        <label htmlFor="unitCost" className="form-label">Unit Cost</label>
+                        <textarea className="form-control" id="unitCost" name="unitCost" defaultValue={ inEditMode ? this.state.data.unitCost : ''}></textarea>
                     </div>
 
-                    {/* Extension */}
+                    {/* unitPrice */}
                     <div className="mb-3">
-                        <label htmlFor="extension" className="form-label">Extension</label>
-                        <input type="text" className="form-control" id="extension" name="extension" defaultValue={ inEditMode ? this.state.data.extension : ''}></input>
+                        <label htmlFor="unitPrice" className="form-label">Unit Price</label>
+                        <input type="text" className="form-control" id="unitPrice" name="unitPrice" defaultValue={ inEditMode ? this.state.data.unitPrice : ''}></input>
                     </div>
-
-                    {/* Content Type */}
-                    <div className="mb-3">
-                        <label htmlFor="contentType" className="form-label">MIME Content Type</label>
-                        <input type="text" className="form-control" id="contentType" name="contentType" defaultValue={ inEditMode ? this.state.data.contentType : ''}></input>
-                    </div>
-
 
                     {/* Result alert */}
                     {alert}
