@@ -48,7 +48,7 @@ class SiteFlowSKUList extends Component {
       
       return (
         <div>
-          <Link to="" className="btn btn-success float-end"><i className="fas fa-plus"></i> New SKU</Link>
+          <Link to="sku/add" className="btn btn-success float-end"><i className="fas fa-plus"></i> New SKU</Link>
           <h2>Site Flow SKUs</h2>
           <p>These are the SKUs loaded from Site Flow.</p>
           {SKUs == null ? (<p>No SKUs loaded</p>) : (null)}

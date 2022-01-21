@@ -12,6 +12,7 @@ import SiteFlowTemplateList from "./pages/SiteFlowTemplateList";
 import LocalTemplateList from './pages/LocalTemplateList';
 import AddLocalTemplateView from "./pages/AddLocalTemplateView";
 import SiteFlowSKUList from "./pages/SiteFlowSKUList";
+import AddSiteFlowSKUView from "./pages/AddSiteFlowSKUView";
 
 
 class RootPage extends Component {
@@ -46,6 +47,7 @@ class RootPage extends Component {
             <Switch>
               <Route path="/siteflow/products" component={SiteFlowProductList} />
               <Route path="/siteflow/sku" component={SiteFlowSKUList} />
+              <Route path="/siteflow/sku/add" component={AddSiteFlowSKUView} />
               <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
 
               {/*Testing*/}
