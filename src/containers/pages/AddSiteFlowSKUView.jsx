@@ -9,13 +9,33 @@ class AddSiteFlowSKUView extends Component {
     */
     constructor(props) {
         super(props);
-        this.state = { responseCode: null, mode: 'new', id: -1000, data: {} };
+        this.state = { responseCode: null, mode: 'new', id: -1000, data: {}, products: [] };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
         this.setState({ mode: 'new' }); // leave in case we want to change a SKU later
         console.log(this.state);
+
+
+        // Simple GET request using fetch
+        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/product/siteflow/get/all', headers)
+          .then(response => {
+            if (response.ok) {
+               return response.json()
+           }
+           throw response;
+          })
+          .then(data => {
+            console.log(data);
+            this.setState({
+              products: data
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          })
     }
 
     handleSubmit(e) {
@@ -66,8 +86,21 @@ class AddSiteFlowSKUView extends Component {
                 alert = (<Redirect to="/local/templates" />);
             }
             else {
-                alert = (<BootstrapAlert alertType='danger' content={`Template ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
+                alert = (<BootstrapAlert alertType='danger' content={`SKU ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
             }
+        }
+
+        var products;
+        if (this.state.products.data == null) {
+            console.log('it\'s undefined');
+            products = null;
+        }
+        else {
+            console.log('it\'s something');
+            products = this.state.products.data.map((item, index) => (
+              (<option data={item} key={item._id} />)
+
+          ));
         }
 
         return (
@@ -76,7 +109,7 @@ class AddSiteFlowSKUView extends Component {
                 <p>Add new SKU for SiteFlow.</p>
 
                 <form onSubmit={this.handleSubmit}>
-                    {/* Sku Code */}
+                    {/* SKU Code */}
                     <div className="mb-3">
                         <label htmlFor="skuCode" className="form-label">SKU Code</label>
                         <input type="text" className="form-control" id="skuCode" name="skuCode" defaultValue={ inEditMode ? this.state.data.skuCode : ''}></input>
@@ -118,8 +151,7 @@ class AddSiteFlowSKUView extends Component {
                     <div className="mb-3">
                         <label htmlFor="productId" className="form-label">Product</label>
                         <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
-                            <option value="product1">Product 1</option>
-                            <option value="product2">Product 2</option>
+                            {products}
                         </select>
                     </div>
 
