@@ -46,10 +46,11 @@ class RootPage extends Component {
         <div className="container mt-3">
             <Switch>
               <Route path="/siteflow/products" component={SiteFlowProductList} />
-              <Route path="/siteflow/sku" component={SiteFlowSKUList} />
-              <Route path="/siteflow/sku/add" component={AddSiteFlowSKUView} />
-              <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
 
+              <Route path="/siteflow/sku/add" component={AddSiteFlowSKUView} />
+              <Route path="/siteflow/sku" component={SiteFlowSKUList} />
+
+              <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
               {/*Testing*/}
               <Route path="/local/templates/modify/:id" component={AddLocalTemplateView} />
 
