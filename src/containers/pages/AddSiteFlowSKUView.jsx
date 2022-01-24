@@ -28,7 +28,7 @@ class AddSiteFlowSKUView extends Component {
            throw response;
           })
           .then(data => {
-            console.log(data);
+//             console.log(data);
             this.setState({
               products: data
             });
@@ -76,6 +76,7 @@ class AddSiteFlowSKUView extends Component {
     }
 
     render() {
+
         let inEditMode = this.state.mode === 'edit';
 
         // Figure out what alert to display
@@ -90,18 +91,15 @@ class AddSiteFlowSKUView extends Component {
             }
         }
 
-        var products;
-        if (this.state.products.data == null) {
-            console.log('it\'s undefined');
-            products = null;
-        }
-        else {
-            console.log('it\'s something');
-            products = this.state.products.data.map((item, index) => (
-              (<option data={item} key={item._id} />)
-
-          ));
-        }
+//         var products;
+//         if (this.state.products.data == null) {
+//             console.log('it\'s undefined');
+//             products = null;
+//         } else {
+//             console.log('it\'s something at when we map');
+//             console.log(this.state.products.data[0].productCode);
+//         }
+//         products ? console.log(products): console.log("did not load")
 
         return (
             <div>
@@ -149,9 +147,11 @@ class AddSiteFlowSKUView extends Component {
                     {/* ProductId */}
                     {/* Need to get information on all products - this is temp */}
                     <div className="mb-3">
-                        <label htmlFor="productId" className="form-label">Product</label>
+                        <label htmlFor="productId" className="form-label">Products</label>
                         <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
-                            {products}
+                            {this.state.products.data ? this.state.products.data.map((item) => (
+                                <option key={item._id}>{item.productCode}</option>
+                            )) : console.log("what a mess lol")}
                         </select>
                     </div>
 
