@@ -1,5 +1,5 @@
 import { Component } from 'react';
-// import { Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 
 import BootstrapAlert from '../components/BootstrapAlert';
 
@@ -28,7 +28,6 @@ class AddSiteFlowSKUView extends Component {
            throw response;
           })
           .then(data => {
-//             console.log(data);
             this.setState({
               products: data
             });
@@ -69,9 +68,9 @@ class AddSiteFlowSKUView extends Component {
         })
             .then((response) => {
                 console.log(response);
-            console.log(`Got response from the POST request with ${response.status}`);
-            console.log(`this state is ${this.state}`);
-            this.setState({ responseCode: response.status });
+                console.log(`Got response from the POST request with ${response.status}`);
+                console.log(`this state is ${this.state}`);
+                this.setState({ responseCode: response.status });
         });
     }
 
@@ -83,8 +82,7 @@ class AddSiteFlowSKUView extends Component {
         let alert = null;
         if (this.state.responseCode != null) {
             if (this.state.responseCode === 200) {
-                // alert = (<Redirect to="/siteflow/sku" />);
-                alert = (<BootstrapAlert alertType='success' content={`SKU ${inEditMode ? 'edited' : 'created'} successfully!`} />);
+                alert = (<Redirect to="/siteflow/sku" />);
             }
             else {
                 alert = (<BootstrapAlert alertType='danger' content={`SKU ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
@@ -139,8 +137,8 @@ class AddSiteFlowSKUView extends Component {
                         <label htmlFor="productId" className="form-label">Products</label>
                         <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
                             {this.state.products.data ? this.state.products.data.map((item) => (
-                                <option value={item._id}>{item.productCode}</option>
-                            )) : console.log("what a mess lol")}
+                                <option key={item._id} value={item._id}>{item.productCode}</option>
+                            )) : console.log("Did not load products")}
                         </select>
                     </div>
 
