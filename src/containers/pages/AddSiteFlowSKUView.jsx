@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
 
 import BootstrapAlert from '../components/BootstrapAlert';
 
@@ -44,10 +44,10 @@ class AddSiteFlowSKUView extends Component {
         // Build the JSON object we want to send to the backend
         var newSkuData = {
 
-            // packageId: e.target.packageId.value, // need to add this
+            packageId: null, // e.target.packageId.value, // need to add this
             code: e.target.skuCode.value,
             description: e.target.description.value,
-            productId: e.target.productId.value,
+            productId: "615dc2a3628d1517e80467e5", // e.target.productId.value,
             active: e.target.active.checked,
             maxItems: e.target.maxItems.value,
             minSLA: e.target.minSLA.value,
@@ -60,7 +60,7 @@ class AddSiteFlowSKUView extends Component {
         console.log(JSON.stringify(newSkuData));
         console.log('Going to make the POST request...');
 
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/post', {
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -83,8 +83,8 @@ class AddSiteFlowSKUView extends Component {
         let alert = null;
         if (this.state.responseCode != null) {
             if (this.state.responseCode === 200) {
-                // alert = (<BootstrapAlert alertType='success' content={`Template ${inEditMode ? 'edited' : 'created'} successfully!`} />);
-                alert = (<Redirect to="/local/templates" />);
+                // alert = (<Redirect to="/siteflow/sku" />);
+                alert = (<BootstrapAlert alertType='success' content={`SKU ${inEditMode ? 'edited' : 'created'} successfully!`} />);
             }
             else {
                 alert = (<BootstrapAlert alertType='danger' content={`SKU ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
@@ -118,7 +118,7 @@ class AddSiteFlowSKUView extends Component {
                     {/* Max Items */}
                     <div className="mb-3">
                         <label htmlFor="maxItems" className="form-label">Max Items</label>
-                        <input type="number" className="form-control" id="minSLA" name="minSLA" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''}></input>
+                        <input type="number" className="form-control" id="maxItems" name="maxItems" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''}></input>
                     </div>
 
                     {/* MinSLA */}
