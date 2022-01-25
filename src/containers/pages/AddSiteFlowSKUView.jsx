@@ -47,7 +47,7 @@ class AddSiteFlowSKUView extends Component {
             packageId: null, // e.target.packageId.value, // need to add this
             code: e.target.skuCode.value,
             description: e.target.description.value,
-            productId: "615dc2a3628d1517e80467e5", // e.target.productId.value,
+            productId: e.target.productId.value, // "615dc2a3628d1517e80467e5" why all the same?
             active: e.target.active.checked,
             maxItems: e.target.maxItems.value,
             minSLA: e.target.minSLA.value,
@@ -139,7 +139,7 @@ class AddSiteFlowSKUView extends Component {
                         <label htmlFor="productId" className="form-label">Products</label>
                         <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
                             {this.state.products.data ? this.state.products.data.map((item) => (
-                                <option key={item._id}>{item.productCode}</option>
+                                <option value={item._id}>{item.productCode}</option>
                             )) : console.log("what a mess lol")}
                         </select>
                     </div>
