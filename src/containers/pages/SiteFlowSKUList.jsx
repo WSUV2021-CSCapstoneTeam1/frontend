@@ -52,9 +52,7 @@ class SiteFlowSKUList extends Component {
           <h2>Site Flow SKUs</h2>
           <p>These are the SKUs loaded from Site Flow.</p>
           {SKUs == null ? (<p>No SKUs loaded</p>) : (null)}
-          <ul>
-            {SKUs}
-          </ul>
+          {SKUs}
         </div>
       );
     }

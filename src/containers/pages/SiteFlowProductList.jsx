@@ -50,9 +50,7 @@ class SiteFlowProductList extends Component {
           <h2>Site Flow Products</h2>
           <p>These are the products loaded from Site Flow.</p>
           {products == null ? (<p>No products loaded</p>) : (null)}
-          <ul>
-            {products}
-          </ul>
+          {products}
         </div>
       );
     }

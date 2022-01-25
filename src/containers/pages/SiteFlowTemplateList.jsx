@@ -50,9 +50,7 @@ class SiteFlowTemplateList extends Component {
           <h2>SiteFlow Templates</h2>
           <p>These are the templates loaded from SiteFlow.</p>
           {templates == null ? (<p>No templates loaded</p>) : (null)}
-          <ul>
-            {templates}
-          </ul>
+          {templates}
         </div>
       );
     }

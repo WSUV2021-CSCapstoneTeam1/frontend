@@ -44,7 +44,7 @@ class AddSiteFlowSKUView extends Component {
         // Build the JSON object we want to send to the backend
         var newSkuData = {
 
-            packageId: e.target.packageId.value, // need to add this
+            // packageId: e.target.packageId.value, // need to add this
             code: e.target.skuCode.value,
             description: e.target.description.value,
             productId: e.target.productId.value,
@@ -91,16 +91,6 @@ class AddSiteFlowSKUView extends Component {
             }
         }
 
-//         var products;
-//         if (this.state.products.data == null) {
-//             console.log('it\'s undefined');
-//             products = null;
-//         } else {
-//             console.log('it\'s something at when we map');
-//             console.log(this.state.products.data[0].productCode);
-//         }
-//         products ? console.log(products): console.log("did not load")
-
         return (
             <div>
                 <h2>Add SKU</h2>
@@ -125,23 +115,22 @@ class AddSiteFlowSKUView extends Component {
                         <label htmlFor="active" className="form-check-label">Active</label>
                     </div>
 
-                    {/* MaxItems - Not done */}
-                    <div className="mb-3 form-check">
-                        <input className="form-check-input" type="number" min="0" value="" data-bind="value:maxItems"
-                            id="maxItems" name="maxItems" defaultChecked={this.state.data.maxItems}></input>
-                        <label htmlFor="maxItems" className="form-check-label">Max Items</label>
+                    {/* Max Items */}
+                    <div className="mb-3">
+                        <label htmlFor="maxItems" className="form-label">Max Items</label>
+                        <input type="number" className="form-control" id="minSLA" name="minSLA" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''}></input>
                     </div>
 
                     {/* MinSLA */}
                     <div className="mb-3">
                         <label htmlFor="minSLA" className="form-label">Min SLA</label>
-                        <input type="text" className="form-control" id="minSLA" name="minSLA" defaultValue={ inEditMode ? this.state.data.minSLA : ''}></input>
+                        <input type="number" className="form-control" id="minSLA" name="minSLA" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''}></input>
                     </div>
 
                     {/* SLADuration */}
                     <div className="mb-3">
                         <label htmlFor="SLADuration" className="form-label">SLA Days</label>
-                        <input type="text" className="form-control" id="SLADuration" name="SLADuration" defaultValue={ inEditMode ? this.state.data.SLADuration : ''}></input>
+                        <input type="number" className="form-control" id="SLADuration" name="SLADuration" min="0" defaultValue={ inEditMode ? this.state.data.SLADuration : ''}></input>
                     </div>
 
                     {/* ProductId */}
@@ -158,13 +147,13 @@ class AddSiteFlowSKUView extends Component {
                     {/* unitCost */}
                     <div className="mb-3">
                         <label htmlFor="unitCost" className="form-label">Unit Cost</label>
-                        <textarea className="form-control" id="unitCost" name="unitCost" defaultValue={ inEditMode ? this.state.data.unitCost : ''}></textarea>
+                        <input type="number" className="form-control" id="unitCost" name="unitCost" defaultValue={ inEditMode ? this.state.data.unitCost : ''}></input>
                     </div>
 
                     {/* unitPrice */}
                     <div className="mb-3">
                         <label htmlFor="unitPrice" className="form-label">Unit Price</label>
-                        <input type="text" className="form-control" id="unitPrice" name="unitPrice" defaultValue={ inEditMode ? this.state.data.unitPrice : ''}></input>
+                        <input type="number" className="form-control" id="unitPrice" name="unitPrice" defaultValue={ inEditMode ? this.state.data.unitPrice : ''}></input>
                     </div>
 
                     {/* Result alert */}
