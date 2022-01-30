@@ -45,14 +45,26 @@ class SiteFlowTemplateList extends Component {
         ));
       }
       
+      // Provides a spinning indicator while in the process of retrieving
+      // information. 
+      var spinIndicator = null;
+      if (templates == null) {
+        // https://getbootstrap.com/docs/5.1/components/spinners/
+        spinIndicator = (<div className='d-flex justify-content-center'>
+          <div className='spinner-border' role='status'>
+            <span className='visually-hidden'>Loading...</span>
+          </div>
+        </div>)
+      } else if (templates.length === 0) {
+        templates = (<div className='d-flex justify-content-center'>No templates loaded</div>)
+      }
+
       return (
         <div>
           <h2>SiteFlow Templates</h2>
           <p>These are the templates loaded from SiteFlow.</p>
-          {templates == null ? (<p>No templates loaded</p>) : (null)}
-          <ul>
-            {templates}
-          </ul>
+          {spinIndicator}
+          {templates}
         </div>
       );
     }

@@ -53,14 +53,27 @@ class LocalTemplateList extends Component {
         ));
       }
 
+      // Provides a spinning indicator while in the process of retrieving
+      // information. 
+      var spinIndicator = null;
+      if (templates == null) {
+        // https://getbootstrap.com/docs/5.1/components/spinners/
+        spinIndicator = (<div className='d-flex justify-content-center'>
+          <div className='spinner-border' role='status'>
+            <span className='visually-hidden'>Loading...</span>
+          </div>
+        </div>)
+      } else if (templates.length === 0) {
+        templates = (<div className='d-flex justify-content-center'>No templates loaded</div>)
+      }
+
       return (
         <div>
           <Link to="templates/add" className="btn btn-success float-end"><i className="fas fa-plus"></i> New Template</Link>
           <h2>Local Templates</h2>
           <p>These are the templates loaded from the backend database.</p>
-          {templates == null ? (<p>No templates loaded</p>) : (templates)}
-
-
+          {spinIndicator}
+          {templates}
         </div>
       );
     }

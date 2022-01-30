@@ -33,7 +33,7 @@ class SiteFlowProductList extends Component {
   
     render() {
       /* List of products from site from site */
-      var products;
+      var products = [];
       if (this.state.products.data == null) {
         console.log('it\'s undefined');
         products = null;
@@ -45,14 +45,26 @@ class SiteFlowProductList extends Component {
         ));
       }
       
+      // Provides a spinning indicator while in the process of retrieving
+      // information. 
+      var spinIndicator = null;
+      if (products == null) {
+        // https://getbootstrap.com/docs/5.1/components/spinners/
+        spinIndicator = (<div className='d-flex justify-content-center'>
+          <div className='spinner-border' role='status'>
+            <span className='visually-hidden'>Loading...</span>
+          </div>
+        </div>)
+      } else if (products.length === 0) {
+        products = (<div className='d-flex justify-content-center'>No products loaded</div>)
+      }
+
       return (
         <div>
           <h2>Site Flow Products</h2>
           <p>These are the products loaded from Site Flow.</p>
-          {products == null ? (<p>No products loaded</p>) : (null)}
-          <ul>
-            {products}
-          </ul>
+          {spinIndicator}
+          {products}
         </div>
       );
     }
