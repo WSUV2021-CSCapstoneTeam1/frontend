@@ -84,6 +84,9 @@ class AddSiteFlowSKUView extends Component {
             if (this.state.responseCode === 201) {
                 alert = (<Redirect to="/siteflow/sku" />);
             }
+            else if (this.state.responseCode === 400) {
+                alert = (<BootstrapAlert alertType='danger' content={`The SKU name has already been taken. `} />);
+            }
             else {
                 alert = (<BootstrapAlert alertType='danger' content={`SKU ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
             }
