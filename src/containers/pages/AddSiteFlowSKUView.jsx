@@ -28,7 +28,6 @@ class AddSiteFlowSKUView extends Component {
            throw response;
           })
           .then(data => {
-            console.log(data);
             this.setState({
               products: data
             });
@@ -44,10 +43,10 @@ class AddSiteFlowSKUView extends Component {
         // Build the JSON object we want to send to the backend
         var newSkuData = {
 
-            packageId: e.target.packageId.value, // need to add this
+            packageId: null,
             code: e.target.skuCode.value,
             description: e.target.description.value,
-            productId: e.target.productId.value,
+            productId: e.target.productId.value, // "615dc2a3628d1517e80467e5" why all the same?
             active: e.target.active.checked,
             maxItems: e.target.maxItems.value,
             minSLA: e.target.minSLA.value,
@@ -60,7 +59,7 @@ class AddSiteFlowSKUView extends Component {
         console.log(JSON.stringify(newSkuData));
         console.log('Going to make the POST request...');
 
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/post', {
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/post', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -69,38 +68,28 @@ class AddSiteFlowSKUView extends Component {
         })
             .then((response) => {
                 console.log(response);
-            console.log(`Got response from the POST request with ${response.status}`);
-            console.log(`this state is ${this.state}`);
-            this.setState({ responseCode: response.status });
+                console.log(`Got response from the POST request with ${response.status}`);
+                console.log(`this state is ${this.state}`);
+                this.setState({ responseCode: response.status });
         });
     }
 
     render() {
+
         let inEditMode = this.state.mode === 'edit';
 
         // Figure out what alert to display
         let alert = null;
         if (this.state.responseCode != null) {
-            if (this.state.responseCode === 200) {
-                // alert = (<BootstrapAlert alertType='success' content={`Template ${inEditMode ? 'edited' : 'created'} successfully!`} />);
-                alert = (<Redirect to="/local/templates" />);
+            if (this.state.responseCode === 201) {
+                alert = (<Redirect to="/siteflow/sku" />);
+            }
+            else if (this.state.responseCode === 400) {
+                alert = (<BootstrapAlert alertType='danger' content={`The SKU name has already been taken. `} />);
             }
             else {
                 alert = (<BootstrapAlert alertType='danger' content={`SKU ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
             }
-        }
-
-        var products;
-        if (this.state.products.data == null) {
-            console.log('it\'s undefined');
-            products = null;
-        }
-        else {
-            console.log('it\'s something');
-            products = this.state.products.data.map((item, index) => (
-              (<option data={item} key={item._id} />)
-
-          ));
         }
 
         return (
@@ -108,63 +97,71 @@ class AddSiteFlowSKUView extends Component {
                 <h2>Add SKU</h2>
                 <p>Add new SKU for SiteFlow.</p>
 
-                <form onSubmit={this.handleSubmit}>
-                    {/* SKU Code */}
+                <form onSubmit={this.handleSubmit} class="needs-validation" noValidate>
+                    {/* SKU Code */} {/*no spaces*/}
                     <div className="mb-3">
                         <label htmlFor="skuCode" className="form-label">SKU Code</label>
-                        <input type="text" className="form-control" id="skuCode" name="skuCode" defaultValue={ inEditMode ? this.state.data.skuCode : ''}></input>
+                        <input type="text" className="form-control" id="skuCode" name="skuCode" defaultValue={ inEditMode ? this.state.data.skuCode : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Description */}
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Description</label>
-                        <input type="text" className="form-control" id="description" name="description" defaultValue={ inEditMode ? this.state.data.description : ''}></input>
+                        <input type="text" className="form-control" id="description" name="description" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Active */}
                     <div className="mb-3 form-check">
-                        <input className="form-check-input" type="checkbox" value="" id="active" name="active" defaultChecked={this.state.data.active}></input>
+                        <input className="form-check-input" type="checkbox" value="" id="active" name="active" defaultChecked={true}></input>
                         <label htmlFor="active" className="form-check-label">Active</label>
                     </div>
 
-                    {/* MaxItems - Not done */}
-                    <div className="mb-3 form-check">
-                        <input className="form-check-input" type="number" min="0" value="" data-bind="value:maxItems"
-                            id="maxItems" name="maxItems" defaultChecked={this.state.data.maxItems}></input>
-                        <label htmlFor="maxItems" className="form-check-label">Max Items</label>
+                    {/* Max Items */}
+                    <div className="mb-3">
+                        <label htmlFor="maxItems" className="form-label">Max Items</label>
+                        <input type="number" className="form-control" id="maxItems" name="maxItems" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* MinSLA */}
                     <div className="mb-3">
                         <label htmlFor="minSLA" className="form-label">Min SLA</label>
-                        <input type="text" className="form-control" id="minSLA" name="minSLA" defaultValue={ inEditMode ? this.state.data.minSLA : ''}></input>
+                        <input type="number" className="form-control" id="minSLA" name="minSLA" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* SLADuration */}
                     <div className="mb-3">
                         <label htmlFor="SLADuration" className="form-label">SLA Days</label>
-                        <input type="text" className="form-control" id="SLADuration" name="SLADuration" defaultValue={ inEditMode ? this.state.data.SLADuration : ''}></input>
+                        <input type="number" className="form-control" id="SLADuration" name="SLADuration" min="0" defaultValue={ inEditMode ? this.state.data.SLADuration : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* ProductId */}
                     {/* Need to get information on all products - this is temp */}
                     <div className="mb-3">
-                        <label htmlFor="productId" className="form-label">Product</label>
+                        <label htmlFor="productId" className="form-label">Products</label>
                         <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
-                            {products}
+                            {this.state.products.data ? this.state.products.data.map((item) => (
+                                <option key={item._id} value={item._id}>{item.productCode}</option>
+                            )) : console.log("Did not load products")}
                         </select>
                     </div>
 
                     {/* unitCost */}
                     <div className="mb-3">
                         <label htmlFor="unitCost" className="form-label">Unit Cost</label>
-                        <textarea className="form-control" id="unitCost" name="unitCost" defaultValue={ inEditMode ? this.state.data.unitCost : ''}></textarea>
+                        <input type="number" min="0" step=".001" className="form-control" id="unitCost" name="unitCost" defaultValue={ inEditMode ? this.state.data.unitCost : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* unitPrice */}
                     <div className="mb-3">
                         <label htmlFor="unitPrice" className="form-label">Unit Price</label>
-                        <input type="text" className="form-control" id="unitPrice" name="unitPrice" defaultValue={ inEditMode ? this.state.data.unitPrice : ''}></input>
+                        <input type="number" min="0" step=".001" className="form-control" id="unitPrice" name="unitPrice" defaultValue={ inEditMode ? this.state.data.unitPrice : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Result alert */}
@@ -177,6 +174,24 @@ class AddSiteFlowSKUView extends Component {
 
 
                 </form>
+
+                <div className="AddSiteFlowSKUView" ref={el => (this.div = el)}>
+                {(function() {
+                  window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // eslint-disable-next-line
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                      form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                          event.preventDefault();
+                          event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                      }, false);
+                    });
+                  }, false);
+                })()}
+                </div>
             </div>
             );
         }

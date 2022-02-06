@@ -29,7 +29,7 @@ class ProductListItem extends Component {
             <h5 className="card-title">{this.props.data.productCode}&nbsp;
               <i className={enabledClass.join(' ')} data-bs-toggle="tooltip" data-bs-placement="top" title={this.props.data.active ? 'Active' : 'Disabled'}></i>
             </h5>
-            <h6 className="card-subtitle mb-2 text-muted">Account ID {this.props.data.accountId}</h6>
+            <h6 className="card-subtitle mb-2 text-muted">Product ID {this.props.data.accountId}</h6>
             <p className="card-text">{this.props.data.description}</p>
             <span className="badge bg-secondary">{this.props.data.extension}</span>
             
