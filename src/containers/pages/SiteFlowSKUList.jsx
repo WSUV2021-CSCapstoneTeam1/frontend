@@ -45,16 +45,28 @@ class SiteFlowSKUList extends Component {
           (<SKUListItem data={item} key={item._id} />)
         ));
       }
+
+      // Provides a spinning indicator while in the process of retrieving
+      // information. 
+      var spinIndicator = null;
+      if (SKUs == null) {
+        // https://getbootstrap.com/docs/5.1/components/spinners/
+        spinIndicator = (<div className='d-flex justify-content-center'>
+          <div className='spinner-border' role='status'>
+            <span className='visually-hidden'>Loading...</span>
+          </div>
+        </div>)
+      } else if (SKUs.length === 0) {
+        SKUs = (<div className='d-flex justify-content-center'>No SKUs loaded</div>)
+      }
       
       return (
         <div>
-          <Link to="" className="btn btn-success float-end"><i className="fas fa-plus"></i> New SKU</Link>
+          <Link to="sku/add" className="btn btn-success float-end"><i className="fas fa-plus"></i> New SKU</Link>
           <h2>Site Flow SKUs</h2>
           <p>These are the SKUs loaded from Site Flow.</p>
-          {SKUs == null ? (<p>No SKUs loaded</p>) : (null)}
-          <ul>
-            {SKUs}
-          </ul>
+          {spinIndicator}
+          {SKUs}
         </div>
       );
     }
