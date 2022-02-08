@@ -20,7 +20,7 @@ class SiteFlowProductList extends Component {
         // Simple GET request using fetch
         fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/product/siteflow/get/all',  {
                 mode: 'cors',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': 'wsu-test-team-1' }
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': newFactory }
             })
             .then(response => {
                 if (response.ok) {
