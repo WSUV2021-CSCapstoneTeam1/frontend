@@ -18,8 +18,10 @@ class SiteFlowTemplateList extends Component {
         this.setState({ templates: [] });
 
         // Simple GET request using fetch
-        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/siteflow/get/all', headers)
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/siteflow/get/all', {
+                mode: 'cors',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': 'wsu-test-team-1' }
+            })
             .then(response => {
                 if (response.ok) {
                     return response.json()
