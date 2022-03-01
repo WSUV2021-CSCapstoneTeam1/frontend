@@ -43,16 +43,17 @@ class AddSiteOrderSKUView extends Component {
         // Build the JSON object we want to send to the backend
         var newOrderData = {
 
-            packageId: null,
-            code: e.target.skuCode.value,
-            description: e.target.description.value,
-            productId: e.target.productId.value,
-            active: e.target.active.checked,
-            maxItems: e.target.maxItems.value,
-            minSLA: e.target.minSLA.value,
-            SLADuration: e.target.SLADuration.value,
-            unitCost: e.target.unitCost.value,
-            unitPrice: e.target.unitPrice.value
+            accountName: e.target.accountName.value,
+            orderID: e.target.orderID.value,
+            // array of skus named items?
+
+            // ship to - Make this an array of address objects?
+            shippingName: e.target.shippingName.value,
+            companyName: e.target.companyName.value,
+            address: e.target.address.value,
+            town: e.target.town.value,
+            postCode: e.target.areaCode.value,
+            isoCountry: e.target.isoCountry.value,
 
         };
 
@@ -95,71 +96,66 @@ class AddSiteOrderSKUView extends Component {
                 <h2>Order</h2>
                 <p>Create new Order for SiteFlow.</p>
 
+                {/* Account Name */}
                 <form onSubmit={this.handleSubmit} class="needs-validation" noValidate>
-                    {/* SKU Code */} {/*no spaces*/}
                     <div className="mb-3">
-                        <label htmlFor="skuCode" className="form-label">SKU Code</label>
-                        <input type="text" className="form-control" id="skuCode" name="skuCode" defaultValue={ inEditMode ? this.state.data.skuCode : ''} required></input>
+                        <label htmlFor="accountName" className="form-label">Account Name</label>
+                        <input type="text" className="form-control" id="accountName" name="accountName" defaultValue={ inEditMode ? this.state.data.skuCode : ''} required></input>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
-                    {/* Description */}
+                    {/* Order ID */}
                     <div className="mb-3">
-                        <label htmlFor="description" className="form-label">Description</label>
-                        <input type="text" className="form-control" id="description" name="description" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
+                        <label htmlFor="orderID" className="form-label">Order ID</label>
+                        <input type="text" className="form-control" id="orderID" name="orderID" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
-                    {/* Active */}
-                    <div className="mb-3 form-check">
-                        <input className="form-check-input" type="checkbox" value="" id="active" name="active" defaultChecked={true}></input>
-                        <label htmlFor="active" className="form-check-label">Active</label>
-                    </div>
+                    <h4>Shipping Address</h4>
 
-                    {/* Max Items */}
+                    {/* Shipping Name */}
                     <div className="mb-3">
-                        <label htmlFor="maxItems" className="form-label">Max Items</label>
-                        <input type="number" className="form-control" id="maxItems" name="maxItems" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''} required></input>
+                        <label htmlFor="shippingName" className="form-label">Name</label>
+                        <input type="text" className="form-control" id="shippingName" name="shippingName" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
-                    {/* MinSLA */}
+                    {/* Company Name */}
                     <div className="mb-3">
-                        <label htmlFor="minSLA" className="form-label">Min SLA</label>
-                        <input type="number" className="form-control" id="minSLA" name="minSLA" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''} required></input>
+                        <label htmlFor="companyName" className="form-label">Company</label>
+                        <input type="text" className="form-control" id="companyName" name="companyName" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
-                    {/* SLADuration */}
+                    {/* Address */}
                     <div className="mb-3">
-                        <label htmlFor="SLADuration" className="form-label">SLA Days</label>
-                        <input type="number" className="form-control" id="SLADuration" name="SLADuration" min="0" defaultValue={ inEditMode ? this.state.data.SLADuration : ''} required></input>
+                        <label htmlFor="address" className="form-label">Address</label>
+                        <input type="text" className="form-control" id="address" name="address" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
-                    {/* ProductId */}
-                    {/* Need to get information on all products - this is temp */}
+                    {/* Town */}
                     <div className="mb-3">
-                        <label htmlFor="productId" className="form-label">Products</label>
-                        <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
-                            {this.state.products.data ? this.state.products.data.map((item) => (
-                                <option key={item._id} value={item._id}>{item.productCode}</option>
-                            )) : console.log("Did not load products")}
+                        <label htmlFor="town" className="form-label">Town</label>
+                        <input type="text" className="form-control" id="town" name="town" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+
+                    {/* Area Code */}
+                    <div className="mb-3">
+                        <label htmlFor="areaCode" className="form-label">Area Code</label>
+                        <input type="text" className="form-control" id="areaCode" name="areaCode" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+
+                    {/* Country iso */}
+                    <div className="mb-3">
+                        <label htmlFor="type" className="form-label">Country</label>
+                        <select className="form-select" id="type" name="type" defaultValue={ inEditMode ? this.state.data.type : 'html'}>
+                            <option value="US">US</option>
+                            <option value="PE">PE</option>
+                            <option value="MA">MA</option>
                         </select>
-                    </div>
-
-                    {/* unitCost */}
-                    <div className="mb-3">
-                        <label htmlFor="unitCost" className="form-label">Unit Cost</label>
-                        <input type="number" min="0" step=".001" className="form-control" id="unitCost" name="unitCost" defaultValue={ inEditMode ? this.state.data.unitCost : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
-                    </div>
-
-                    {/* unitPrice */}
-                    <div className="mb-3">
-                        <label htmlFor="unitPrice" className="form-label">Unit Price</label>
-                        <input type="number" min="0" step=".001" className="form-control" id="unitPrice" name="unitPrice" defaultValue={ inEditMode ? this.state.data.unitPrice : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Result alert */}
@@ -167,7 +163,7 @@ class AddSiteOrderSKUView extends Component {
 
                     {/* Add Button */}
                     <div className="mb-3">
-                        <button type="submit" className="btn btn-primary">Add SKU</button>
+                        <button type="submit" className="btn btn-primary">Place Order</button>
                     </div>
 
 
