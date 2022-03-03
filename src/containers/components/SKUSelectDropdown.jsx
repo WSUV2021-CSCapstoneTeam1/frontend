@@ -9,10 +9,22 @@ class SKUSelectDropdown extends Component {
         super(props);
         this.state = {currentSKU: '', allSKUs: [] };
         this.onSKUChanged = this.onSKUChanged.bind(this);
+
+        this.loadAllSKUs = this.loadAllSKUs.bind(this);
     }
 
     componentDidMount() {
-        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': 'wsu-test-team-1' }
+        this.loadAllSKUs();
+    }
+
+    componentDidUpdate() {
+        // this.loadAllSKUs();
+    }
+
+    loadAllSKUs() {
+        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': this.props.factory }
+
+        console.log("load all SKUs on SKU select");
         fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/get/all', { mode: 'cors', headers: headers })
               .then(response => {
                 if (response.ok) {
