@@ -16,7 +16,7 @@ class AddSiteOrderSKUView extends Component {
         super(props);
         this.state = {
             responseCode: null,
-            factory: '',
+            factory: 'wsu-test-team-1',
             sku: '',
         };
         this.handleSubmit = this.handleSubmit.bind(this);

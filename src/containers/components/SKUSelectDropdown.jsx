@@ -9,14 +9,10 @@ class SKUSelectDropdown extends Component {
         super(props);
         this.state = { currentSKU: '', allFactoriesAndSKUs: {} };
         this.onSKUChanged = this.onSKUChanged.bind(this);
-
-        this.loadAllSKUs = this.loadAllSKUs.bind(this);
-
         this.allFactories = [];
     }
 
     componentDidMount() {
-        console.log('SKUSelectDropdown componentDidMount');
         this.loadAllFactories();
     }
 
@@ -46,7 +42,6 @@ class SKUSelectDropdown extends Component {
                 'siteflow-organization': factory
             }
     
-            console.log(`load all SKUs on SKU select for the factory ${factory}`);
             fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/get/all', { mode: 'cors', headers: headers })
                 .then(response => {
                     if (response.ok) {
@@ -60,7 +55,7 @@ class SKUSelectDropdown extends Component {
                     this.setState({
                         allFactoriesAndSKUs: factories
                     });
-                    console.log(`SKUs for factory ${factory} retrieved!`);
+                    
                 })
                 .catch(error => {
                     console.log(error);
