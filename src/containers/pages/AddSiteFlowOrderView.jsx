@@ -5,6 +5,14 @@ import FactorySelectDropdown from '../components/FactorySelectDropdown';
 import SKUSelectDropdown from '../components/SKUSelectDropdown';
 import BootstrapAlert from '../components/BootstrapAlert';
 
+import {
+    generateID,
+    generateUserName,
+    generateAddress,
+    generateTownName,
+    generateAreaCode,
+    generateCompanyName
+} from '../assistants/Generators';
 /*
 TODO: SKU select dropdown needs to be told which factory to pull from!
 */
@@ -110,6 +118,8 @@ class AddSiteOrderSKUView extends Component {
             }
         }
 
+        console.log(generateID());
+
         return (
             <div>
                 <h2>Order</h2>
@@ -125,7 +135,7 @@ class AddSiteOrderSKUView extends Component {
                     {/* Order ID */}
                     <div className="mb-3">
                         <label htmlFor="orderID" className="form-label">Order ID</label>
-                        <input type="text" className="form-control" id="orderID" name="orderID" ref={this.orderID} required></input>
+                        <input type="text" className="form-control" id="orderID" name="orderID" ref={this.orderID} defaultValue={ generateID() } required></input>
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
@@ -141,35 +151,35 @@ class AddSiteOrderSKUView extends Component {
                     {/* Shipping Name */}
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Name</label>
-                        <input type="text" className="form-control" id="name" name="name" ref={this.shippingName} required></input>
+                        <input type="text" className="form-control" id="name" name="name" ref={this.shippingName} defaultValue={generateUserName()} required></input>
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Company Name */}
                     <div className="mb-3">
                         <label htmlFor="companyName" className="form-label">Company</label>
-                        <input type="text" className="form-control" id="companyName" name="companyName" ref={this.companyName} required></input>
+                        <input type="text" className="form-control" id="companyName" name="companyName" ref={this.companyName} defaultValue={generateCompanyName()} required></input>
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Address */}
                     <div className="mb-3">
                         <label htmlFor="address1" className="form-label">Address</label>
-                        <input type="text" className="form-control" id="address1" name="address1" ref={this.address1} required></input>
+                        <input type="text" className="form-control" id="address1" name="address1" ref={this.address1} defaultValue={generateAddress()} required></input>
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Town */}
                     <div className="mb-3">
                         <label htmlFor="town" className="form-label">Town</label>
-                        <input type="text" className="form-control" id="town" name="town" ref={this.town} required></input>
+                        <input type="text" className="form-control" id="town" name="town" ref={this.town} defaultValue={generateTownName()} required></input>
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Area Code */}
                     <div className="mb-3">
                         <label htmlFor="postcode" className="form-label">Area Code</label>
-                        <input type="text" className="form-control" id="postcode" name="postcode" ref={this.postcode} required></input>
+                        <input type="text" className="form-control" id="postcode" name="postcode" ref={this.postcode} defaultValue={generateAreaCode()} required></input>
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
