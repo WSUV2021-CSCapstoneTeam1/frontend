@@ -46,57 +46,63 @@ class AddSiteOrderSKUView extends Component {
 
         // Build the JSON object we want to send to the backend
         var newOrderData = {
+            destination: {
+                name: this.state.factory
+            },
             orderData: {
                 sourceOrderId: this.orderID.current.value,
                 items: [
                     {
                         sku: this.state.sku,
-                        sourceItemId: "SOURCE ITEM ID",
+                        sourceItemId: "Orthotic-Right-1629815804",
                         shipmentIndex: 0,
-                        components: {
+                        components: [{
                             fetch: true,
-                            code: "SOME CODE",
-                            path: "URL",
-                            sourceComponentId: "SOURCE COMPONENT ID"
+                            code: "Orthotic-Component",
+                            path: "https://github.com/3MFConsortium/3mf-samples/raw/master/examples/slices/torus_sliced.3mf",
+                            sourceComponentId: this.state.sku
+                        }]
+                    }
+                ],
+                shipments: [
+                    {
+                        shipmentIndex: 0,
+                        shipTo: {
+                            name: this.shippingName.current.value,
+                            companyName: this.companyName.current.value,
+                            address1: this.address1.current.value,
+                            town: this.town.current.value,
+                            postcode: this.postcode.current.value,
+                            isoCountry: this.isoCountry.current.value
+                        },
+                        carrier: {
+                            code: "customer",
+                            service: "shipping",
+                            alias: "shipping",
+                            serviceId: "609ce85df25ab99e79aa319a"
                         }
                     }
                 ]
-            },
-            shipments: [
-                {
-                    shipmentIndex: 0,
-                    shipTo: {
-                        name: this.shippingName.current.value,
-                        companyName: this.companyName.current.value,
-                        address1: this.address1.current.value,
-                        town: this.town.current.value,
-                        postcode: this.postcode.current.value,
-                        isoCountry: this.isoCountry.current.value
-                    },
-                    carrier: {
-                        code: "fedex",
-                        service: "ground"
-                    }
-                }
-            ]
+            }
         };
 
         console.log(JSON.stringify(newOrderData));
-        // console.log('Going to make the POST request...');
-        // fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/order/siteflow/post', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'siteflow-organization': this.state.factory,
-        //     },
-        //     body: JSON.stringify(newOrderData)
-        // })
-        //     .then((response) => {
-        //         console.log(response);
-        //         console.log(`Got response from the POST request with ${response.status}`);
-        //         console.log(`this state is ${this.state}`);
-        //         this.setState({ responseCode: response.status });
-        // });
+        console.log('Going to make the POST request...');
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/order/siteflow/post', {
+            mode: 'cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'siteflow-organization': this.state.factory,
+            },
+            body: JSON.stringify(newOrderData)
+        })
+            .then((response) => {
+                console.log(response);
+                console.log(`Got response from the POST request with ${response.status}`);
+                this.setState({ responseCode: response.status });
+            });
     }
 
     onFactoryChanged(newFactory) {
@@ -118,8 +124,6 @@ class AddSiteOrderSKUView extends Component {
             }
         }
 
-        console.log(generateID());
-
         return (
             <div>
                 <h2>Order</h2>
@@ -135,18 +139,18 @@ class AddSiteOrderSKUView extends Component {
                     {/* Order ID */}
                     <div className="mb-3">
                         <label htmlFor="orderID" className="form-label">Order ID</label>
-                        <input type="text" className="form-control" id="orderID" name="orderID" ref={this.orderID} defaultValue={ generateID() } required></input>
+                        <input type="text" className="form-control" id="orderID" name="orderID" ref={this.orderID} defaultValue={generateID()} required></input>
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* SKU */}
                     <div className="mb-3">
-                        <SKUSelectDropdown factory={ this.state.factory } onSKUChanged={this.onSKUChanged} />
+                        <SKUSelectDropdown factory={this.state.factory} onSKUChanged={this.onSKUChanged} />
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     <h4 className='mt-4'>Shipping Address</h4>
-                    
+
 
                     {/* Shipping Name */}
                     <div className="mb-3">
@@ -205,25 +209,25 @@ class AddSiteOrderSKUView extends Component {
                 </form>
 
                 <div className="AddSiteOrderSKUView" ref={el => (this.div = el)}>
-                {(function() {
-                  window.addEventListener('load', function() {
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // eslint-disable-next-line
-                    var validation = Array.prototype.filter.call(forms, function(form) {
-                      form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                          event.preventDefault();
-                          event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                      }, false);
-                    });
-                  }, false);
-                })()}
+                    {(function () {
+                        window.addEventListener('load', function () {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            // eslint-disable-next-line
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener('submit', function (event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                    form.classList.add('was-validated');
+                                }, false);
+                            });
+                        }, false);
+                    })()}
                 </div>
             </div>
-            );
-        }
+        );
     }
+}
 
-    export default AddSiteOrderSKUView;
+export default AddSiteOrderSKUView;

@@ -90,7 +90,7 @@ class SKUSelectDropdown extends Component {
         }
         else {
             skuElements = skuList.data.map((item) => (
-                (<option value={item.code}></option>)
+                (<option value={item.code} key={item._id}></option>)
             ));
         }
 
