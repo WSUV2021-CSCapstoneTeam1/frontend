@@ -19,19 +19,19 @@ class SKUSelectDropdown extends Component {
     loadAllFactories() {
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
         fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/team/rds/get/all', headers)
-          .then(response => {
-            if (response.ok) {
-               return response.json()
-           }
-           throw response;
-          })
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+                throw response;
+            })
             .then(data => {
                 this.allFactories = data.data.map((a) => a.name);
                 this.loadAllSKUs();
-          })
-          .catch(error => {
-            console.log(error);
-          })
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     loadAllSKUs() {
@@ -41,7 +41,7 @@ class SKUSelectDropdown extends Component {
                 'Accept': 'application/json',
                 'siteflow-organization': factory
             }
-    
+
             fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/get/all', { mode: 'cors', headers: headers })
                 .then(response => {
                     if (response.ok) {
@@ -55,9 +55,16 @@ class SKUSelectDropdown extends Component {
                     this.setState({
                         allFactoriesAndSKUs: factories
                     });
-                    
+
                 })
                 .catch(error => {
+                    var factories = this.state.allFactoriesAndSKUs;
+                    factories[factory] = {
+                        data: []
+                    };
+                    this.setState({
+                        allFactoriesAndSKUs: factories
+                    });
                     console.log(error);
                 })
         }
@@ -83,16 +90,17 @@ class SKUSelectDropdown extends Component {
         }
         else {
             skuElements = skuList.data.map((item) => (
-                (<option data={item.code} key={item._id}>{item.code}</option>)
+                (<option value={item.code}></option>)
             ));
         }
 
         return (
             <div>
                 <label htmlFor="SKUId" className="form-label">SKU</label>
-                <select className="form-select" id="SKUId" name="SKUId" onChange={this.onSKUChanged} value={this.state.currentSKU}>
+                <input className="form-control" list="SKUIdOptions" id="SKUId" onChange={this.onSKUChanged}></input>
+                <datalist id="SKUIdOptions" name="SKUIdOptions" value={this.state.currentSKU}>
                     {skuElements}
-                </select>
+                </datalist>
             </div>
         );
     }
