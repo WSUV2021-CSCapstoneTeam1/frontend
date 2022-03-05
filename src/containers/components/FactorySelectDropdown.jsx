@@ -45,11 +45,9 @@ class FactorySelectDropdown extends Component {
     render() {
         var factories = [];
         if (this.state.allFactories.data == null) {
-            console.log('no factories');
             factories = null;
         }
         else {
-            console.log('we got factos');
             factories = this.state.allFactories.data.map((item) => (
                 (<option key={item.name} value={item.name}>{item.name}</option>)
             ));

@@ -7,40 +7,65 @@ class SKUSelectDropdown extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {currentSKU: '', allSKUs: [] };
+        this.state = { currentSKU: '', allFactoriesAndSKUs: {} };
         this.onSKUChanged = this.onSKUChanged.bind(this);
 
         this.loadAllSKUs = this.loadAllSKUs.bind(this);
+
+        this.allFactories = [];
     }
 
     componentDidMount() {
-        this.loadAllSKUs();
+        console.log('SKUSelectDropdown componentDidMount');
+        this.loadAllFactories();
     }
 
-    componentDidUpdate() {
-        // this.loadAllSKUs();
+    loadAllFactories() {
+        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/team/rds/get/all', headers)
+          .then(response => {
+            if (response.ok) {
+               return response.json()
+           }
+           throw response;
+          })
+            .then(data => {
+                this.allFactories = data.data.map((a) => a.name);
+                this.loadAllSKUs();
+          })
+          .catch(error => {
+            console.log(error);
+          })
     }
 
     loadAllSKUs() {
-        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': this.props.factory }
-
-        console.log("load all SKUs on SKU select");
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/get/all', { mode: 'cors', headers: headers })
-              .then(response => {
-                if (response.ok) {
-                   return response.json()
-               }
-               throw response;
-              })
-                .then(data => {
-                    console.log(data);
-                this.setState({
-                  allSKUs: data
+        for (const factory of this.allFactories) {
+            const headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'siteflow-organization': factory
+            }
+    
+            console.log(`load all SKUs on SKU select for the factory ${factory}`);
+            fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/get/all', { mode: 'cors', headers: headers })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json()
+                    }
+                    throw response;
                 })
-              })
-              .catch(error => {
-                console.log(error);
-              })
+                .then(data => {
+                    var factories = this.state.allFactoriesAndSKUs;
+                    factories[factory] = data;
+                    this.setState({
+                        allFactoriesAndSKUs: factories
+                    });
+                    console.log(`SKUs for factory ${factory} retrieved!`);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     }
 
     onSKUChanged(event) {
@@ -55,13 +80,14 @@ class SKUSelectDropdown extends Component {
     }
 
     render() {
-        var skus = [];
-        if (this.state.allSKUs.data == null) {
+        var skuElements = [];
+        var skuList = this.state.allFactoriesAndSKUs[this.props.factory];
+        if (skuList == null) {
             console.log('no SKUs');
-            skus = null;
+            skuElements = null;
         }
         else {
-            skus = this.state.allSKUs.data.map((item) => (
+            skuElements = skuList.data.map((item) => (
                 (<option data={item.code} key={item._id}>{item.code}</option>)
             ));
         }
@@ -70,7 +96,7 @@ class SKUSelectDropdown extends Component {
             <div>
                 <label htmlFor="SKUId" className="form-label">SKU</label>
                 <select className="form-select" id="SKUId" name="SKUId" onChange={this.onSKUChanged} value={this.state.currentSKU}>
-                    {skus}
+                    {skuElements}
                 </select>
             </div>
         );

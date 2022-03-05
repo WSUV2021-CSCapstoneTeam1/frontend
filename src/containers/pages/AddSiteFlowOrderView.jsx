@@ -38,9 +38,6 @@ class AddSiteOrderSKUView extends Component {
 
         // Build the JSON object we want to send to the backend
         var newOrderData = {
-            destination: {
-                name: this.state.factory
-            },
             orderData: {
                 sourceOrderId: this.orderID.current.value,
                 items: [
@@ -81,7 +78,8 @@ class AddSiteOrderSKUView extends Component {
         // fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/order/siteflow/post', {
         //     method: 'POST',
         //     headers: {
-        //         'Content-Type': 'application/json'
+        //         'Content-Type': 'application/json',
+        //         'siteflow-organization': this.state.factory,
         //     },
         //     body: JSON.stringify(newOrderData)
         // })
