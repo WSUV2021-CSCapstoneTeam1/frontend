@@ -3,6 +3,8 @@ import { Redirect } from 'react-router';
 
 import BootstrapAlert from '../components/BootstrapAlert';
 
+// TODO: Select destination factory!
+
 class AddSiteFlowSKUView extends Component {
     /*
     This is the page where a user can create and submit a SKU to Site Flow.
@@ -20,7 +22,7 @@ class AddSiteFlowSKUView extends Component {
 
         // Simple GET request using fetch
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/product/siteflow/get/all', headers)
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/product/siteflow/get/all', { mode: 'cors', headers: headers })
           .then(response => {
             if (response.ok) {
                return response.json()
@@ -56,8 +58,6 @@ class AddSiteFlowSKUView extends Component {
 
         };
 
-        console.log(JSON.stringify(newSkuData));
-        console.log('Going to make the POST request...');
 
         fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/post', {
             method: 'POST',
