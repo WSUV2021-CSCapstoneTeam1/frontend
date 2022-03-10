@@ -317,15 +317,13 @@ const townNames = [
 
 const companyNames = [
     'Don\'s Fingerless Mittens, LLC',
-    'BeepoVac Corporation',
+    'BeepoVac Corp.',
     'Chalupa Gong',
     'Pear',
     'National Aeronautics and Sloths Administration',
     'Taste\'s Photographs',
     '8-Twelve',
     'Rectangular Table Pizza',
-    'The Foot Place (???)',
-    'Store Where You Can Get More Company Names (I Am Running Out)'
 ]
 
 export function generateUserName() {
