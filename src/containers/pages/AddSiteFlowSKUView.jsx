@@ -3,6 +3,8 @@ import { Redirect } from 'react-router';
 
 import BootstrapAlert from '../components/BootstrapAlert';
 
+// TODO: Select destination factory!
+
 class AddSiteFlowSKUView extends Component {
     /*
     This is the page where a user can create and submit a SKU to Site Flow.
@@ -20,7 +22,7 @@ class AddSiteFlowSKUView extends Component {
 
         // Simple GET request using fetch
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/product/siteflow/get/all', headers)
+        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/product/siteflow/get/all', { mode: 'cors', headers: headers })
           .then(response => {
             if (response.ok) {
                return response.json()
@@ -56,8 +58,6 @@ class AddSiteFlowSKUView extends Component {
 
         };
 
-        console.log(JSON.stringify(newSkuData));
-        console.log('Going to make the POST request...');
 
         fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/post', {
             method: 'POST',
@@ -97,19 +97,19 @@ class AddSiteFlowSKUView extends Component {
                 <h2>Add SKU</h2>
                 <p>Add new SKU for SiteFlow.</p>
 
-                <form onSubmit={this.handleSubmit} class="needs-validation" noValidate>
+                <form onSubmit={this.handleSubmit} className="needs-validation" noValidate>
                     {/* SKU Code */} {/*no spaces*/}
                     <div className="mb-3">
                         <label htmlFor="skuCode" className="form-label">SKU Code</label>
                         <input type="text" className="form-control" id="skuCode" name="skuCode" defaultValue={ inEditMode ? this.state.data.skuCode : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Description */}
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Description</label>
                         <input type="text" className="form-control" id="description" name="description" defaultValue={ inEditMode ? this.state.data.description : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Active */}
@@ -122,21 +122,21 @@ class AddSiteFlowSKUView extends Component {
                     <div className="mb-3">
                         <label htmlFor="maxItems" className="form-label">Max Items</label>
                         <input type="number" className="form-control" id="maxItems" name="maxItems" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* MinSLA */}
                     <div className="mb-3">
                         <label htmlFor="minSLA" className="form-label">Min SLA</label>
                         <input type="number" className="form-control" id="minSLA" name="minSLA" min="0" defaultValue={ inEditMode ? this.state.data.minSLA : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* SLADuration */}
                     <div className="mb-3">
                         <label htmlFor="SLADuration" className="form-label">SLA Days</label>
                         <input type="number" className="form-control" id="SLADuration" name="SLADuration" min="0" defaultValue={ inEditMode ? this.state.data.SLADuration : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* ProductId */}
@@ -154,14 +154,14 @@ class AddSiteFlowSKUView extends Component {
                     <div className="mb-3">
                         <label htmlFor="unitCost" className="form-label">Unit Cost</label>
                         <input type="number" min="0" step=".001" className="form-control" id="unitCost" name="unitCost" defaultValue={ inEditMode ? this.state.data.unitCost : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* unitPrice */}
                     <div className="mb-3">
                         <label htmlFor="unitPrice" className="form-label">Unit Price</label>
                         <input type="number" min="0" step=".001" className="form-control" id="unitPrice" name="unitPrice" defaultValue={ inEditMode ? this.state.data.unitPrice : ''} required></input>
-                        <div class="invalid-feedback">Please fill out this field.</div>
+                        <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
                     {/* Result alert */}
