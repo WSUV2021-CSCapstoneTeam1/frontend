@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Link } from "react-router-dom";
+import { baseApiUrl } from '../App';
 
 class TemplateListItem extends Component {
     /*
@@ -17,7 +18,7 @@ class TemplateListItem extends Component {
       console.log(this.state.templateData);
 
       let id = this.state.templateData.id;
-      fetch(`http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/delete?id=${id}`, {
+      fetch(`${baseApiUrl}/template/rds/delete?id=${id}`, {
         method: 'DELETE'
       })
         .then((response) => {

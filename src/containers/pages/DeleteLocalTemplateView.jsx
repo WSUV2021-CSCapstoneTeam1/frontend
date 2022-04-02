@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { baseApiUrl } from '../App';
 
 import BootstrapAlert from '../components/BootstrapAlert';
 
@@ -25,7 +26,7 @@ class DeleteLocalTemplateView extends Component {
 
         // Simple GET request using fetch
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch(`http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/delete?id=${inputId}`, headers)
+        fetch(`${baseApiUrl}/template/rds/delete?id=${inputId}`, headers)
             .then((response) => {
                 console.log(response.status);
                 this.setState({ responseCode: response.status });

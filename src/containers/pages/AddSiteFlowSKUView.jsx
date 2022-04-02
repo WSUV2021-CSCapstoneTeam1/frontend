@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Redirect } from 'react-router';
+import { baseApiUrl } from '../App';
 
 import BootstrapAlert from '../components/BootstrapAlert';
 
@@ -22,7 +23,7 @@ class AddSiteFlowSKUView extends Component {
 
         // Simple GET request using fetch
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/product/siteflow/get/all', { mode: 'cors', headers: headers })
+        fetch(`${baseApiUrl}/product/siteflow/get/all`, { mode: 'cors', headers: headers })
           .then(response => {
             if (response.ok) {
                return response.json()
@@ -59,7 +60,7 @@ class AddSiteFlowSKUView extends Component {
         };
 
 
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/post', {
+        fetch(`${baseApiUrl}/sku/siteflow/post`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

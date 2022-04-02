@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import TemplateListItem from '../components/TemplateListItem';
 import FactorySelectDropdown from '../components/FactorySelectDropdown';
+import { baseApiUrl } from '../App';
 
 class SiteFlowTemplateList extends Component {
     /*
@@ -18,7 +19,7 @@ class SiteFlowTemplateList extends Component {
         this.setState({ templates: [] });
 
         // Simple GET request using fetch
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/siteflow/get/all', {
+        fetch(`${baseApiUrl}/template/siteflow/get/all`, {
                 mode: 'cors',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': newFactory }
             })

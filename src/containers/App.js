@@ -80,4 +80,5 @@ function App() {
   return <RootPage />
 }
 
+export const baseApiUrl = "http://54.186.191.154:8090/BackendApi-1.0-SNAPSHOT/api";
 export default App;

@@ -13,6 +13,7 @@ import {
     generateAreaCode,
     generateCompanyName
 } from '../assistants/Generators';
+import { baseApiUrl } from '../App';
 /*
 TODO: SKU select dropdown needs to be told which factory to pull from!
 */
@@ -88,7 +89,7 @@ class AddSiteOrderSKUView extends Component {
 
         console.log(JSON.stringify(newOrderData));
         console.log('Going to make the POST request...');
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/order/siteflow/post', {
+        fetch(`${baseApiUrl}/order/siteflow/post`, {
             mode: 'cors',
             method: 'POST',
             headers: {
