@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { baseApiUrl } from '../App';
 
 class SKUSelectDropdown extends Component {
     /*
@@ -18,7 +19,7 @@ class SKUSelectDropdown extends Component {
 
     loadAllFactories() {
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/team/rds/get/all', headers)
+        fetch(`${baseApiUrl}/team/rds/get/all`, headers)
             .then(response => {
                 if (response.ok) {
                     return response.json()
@@ -42,7 +43,7 @@ class SKUSelectDropdown extends Component {
                 'siteflow-organization': factory
             }
 
-            fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/sku/siteflow/get/all', { mode: 'cors', headers: headers })
+            fetch(`${baseApiUrl}/sku/siteflow/get/all`, { mode: 'cors', headers: headers })
                 .then(response => {
                     if (response.ok) {
                         return response.json()
