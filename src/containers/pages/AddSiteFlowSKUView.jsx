@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import { baseApiUrl } from '../App';
 
 import BootstrapAlert from '../components/BootstrapAlert';
+import FactorySelectDropdown from '../components/FactorySelectDropdown';
 
 // TODO: Select destination factory!
 
@@ -12,32 +13,15 @@ class AddSiteFlowSKUView extends Component {
     */
     constructor(props) {
         super(props);
-        this.state = { responseCode: null, mode: 'new', id: -1000, data: {}, products: [] };
+        this.state = { responseCode: null, mode: 'new', id: -1000, data: {}, products: [], factory: "wsu-test-team-1" };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onFactoryChanged = this.onFactoryChanged.bind(this);
     }
 
     componentDidMount() {
         this.setState({ mode: 'new' }); // leave in case we want to change a SKU later
         console.log(this.state);
-
-
-        // Simple GET request using fetch
-        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch(`${baseApiUrl}/product/siteflow/get/all`, { mode: 'cors', headers: headers })
-          .then(response => {
-            if (response.ok) {
-               return response.json()
-           }
-           throw response;
-          })
-          .then(data => {
-            this.setState({
-              products: data
-            });
-          })
-          .catch(error => {
-            console.log(error);
-          })
+        this.onFactoryChanged('wsu-test-team-1');
     }
 
     handleSubmit(e) {
@@ -63,7 +47,8 @@ class AddSiteFlowSKUView extends Component {
         fetch(`${baseApiUrl}/sku/siteflow/post`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'siteflow-organization': this.state.factory
             },
             body: JSON.stringify(newSkuData)
         })
@@ -75,8 +60,30 @@ class AddSiteFlowSKUView extends Component {
         });
     }
 
-    render() {
+    onFactoryChanged(newFactory) {
+        this.setState({products: [], factory: newFactory})
+        // Simple GET request using fetch
+        const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': newFactory }
+        fetch(`${baseApiUrl}/product/siteflow/get/all`, { mode: 'cors', headers: headers })
+          .then(response => {
+            if (response.ok) {
+               return response.json()
+           }
+           throw response;
+          })
+          .then(data => {
+            this.setState({
+              products: data
+            });
+              console.log('new products for factory found!');
+              console.log(data);
+          })
+          .catch(error => {
+            console.log(error);
+          })
+    }
 
+    render() {
         let inEditMode = this.state.mode === 'edit';
 
         // Figure out what alert to display
@@ -99,6 +106,10 @@ class AddSiteFlowSKUView extends Component {
                 <p>Add new SKU for SiteFlow.</p>
 
                 <form onSubmit={this.handleSubmit} className="needs-validation" noValidate>
+                    <div className="mb-3">
+                        <FactorySelectDropdown onFactoryChanged={this.onFactoryChanged} />
+                    </div>
+                    
                     {/* SKU Code */} {/*no spaces*/}
                     <div className="mb-3">
                         <label htmlFor="skuCode" className="form-label">SKU Code</label>
