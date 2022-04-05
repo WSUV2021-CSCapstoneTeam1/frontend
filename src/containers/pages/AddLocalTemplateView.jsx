@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Redirect } from 'react-router';
+import { baseApiUrl } from '../App';
 
 import BootstrapAlert from '../components/BootstrapAlert';
 
@@ -23,7 +24,7 @@ class AddLocalTemplateView extends Component {
 
             // Let's load the default data
             let id = this.props.match.params.id;
-            let url = `http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/get?id=${id}`;
+            let url = `${baseApiUrl}/template/rds/get?id=${id}`;
             console.log(url);
             const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
             fetch(url, headers)
@@ -73,7 +74,7 @@ class AddLocalTemplateView extends Component {
             console.log(JSON.stringify(newTemplateData));
             console.log('Going to make the POST request...');
     
-            fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/post', {
+            fetch(`${baseApiUrl}/template/rds/post`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -93,7 +94,7 @@ class AddLocalTemplateView extends Component {
             console.log(JSON.stringify(newTemplateData));
             console.log('Going to make the POST request...');
     
-            fetch(`http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/update?id=${this.state.id}`, {
+            fetch(`${baseApiUrl}/template/rds/update?id=${this.state.id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

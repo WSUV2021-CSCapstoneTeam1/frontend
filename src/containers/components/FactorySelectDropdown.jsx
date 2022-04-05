@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { baseApiUrl } from '../App';
 
 class FactorySelectDropdown extends Component {
     /*
@@ -14,7 +15,7 @@ class FactorySelectDropdown extends Component {
         // TODO: fetch the list of factories from the backend, and populate
         // the options available
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-            fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/team/rds/get/all', headers)
+            fetch(`${baseApiUrl}/team/rds/get/all`, headers)
               .then(response => {
                 if (response.ok) {
                    return response.json()
@@ -45,11 +46,9 @@ class FactorySelectDropdown extends Component {
     render() {
         var factories = [];
         if (this.state.allFactories.data == null) {
-            console.log('no factories');
             factories = null;
         }
         else {
-            console.log('we got factos');
             factories = this.state.allFactories.data.map((item) => (
                 (<option key={item.name} value={item.name}>{item.name}</option>)
             ));

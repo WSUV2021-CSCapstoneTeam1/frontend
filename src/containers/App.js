@@ -13,6 +13,7 @@ import LocalTemplateList from './pages/LocalTemplateList';
 import AddLocalTemplateView from "./pages/AddLocalTemplateView";
 import SiteFlowSKUList from "./pages/SiteFlowSKUList";
 import AddSiteFlowSKUView from "./pages/AddSiteFlowSKUView";
+import AddSiteFlowOrderView from "./pages/AddSiteFlowOrderView";
 
 
 class RootPage extends Component {
@@ -38,6 +39,7 @@ class RootPage extends Component {
                     <li className="nav-item fw-light"><a href="/siteflow/sku" className="nav-link">Site Flow SKUs</a></li>
                     <li className="nav-item fw-light"><a href="/siteflow/templates" className="nav-link">Site Flow Templates</a></li>
                     <li className="nav-item fw-light"><a href="/local/templates" className="nav-link">Local Templates</a></li>
+                    <li className="nav-item fw-light"><a href="/siteflow/order" className="nav-link">Order</a></li>
                 </ul>
             </div>
         </nav>
@@ -49,6 +51,7 @@ class RootPage extends Component {
               <Route path="/siteflow/sku/add" component={AddSiteFlowSKUView} />
               <Route path="/siteflow/sku" component={SiteFlowSKUList} />
               <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
+              <Route path="/siteflow/order" component={AddSiteFlowOrderView} />
               {/*Testing*/}
               <Route path="/local/templates/modify/:id" component={AddLocalTemplateView} />
               {/*Testing*/}
@@ -77,4 +80,5 @@ function App() {
   return <RootPage />
 }
 
+export const baseApiUrl = "https://hp.wsuv-cs-project.com:8443/BackendApi-1.0-SNAPSHOT/api";
 export default App;

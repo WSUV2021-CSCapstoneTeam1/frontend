@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Link } from "react-router-dom";
+import { baseApiUrl } from '../App';
 
 class TemplateListItem extends Component {
     /*
@@ -17,13 +18,15 @@ class TemplateListItem extends Component {
       console.log(this.state.templateData);
 
       let id = this.state.templateData.id;
-      fetch(`http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/delete?id=${id}`, {
+      let fullUrl = `${baseApiUrl}/template/${this.props.location}/delete?id=${id}`;
+      console.log(fullUrl);
+      fetch(fullUrl, {
         method: 'DELETE'
       })
         .then((response) => {
           console.log(`Response from server trying to delete with ID ${id}:`);
           console.log(response);
-          this.props.onDelete();
+          if (this.props.onDelete) this.props.onDelete();
       })
     }
   
@@ -55,11 +58,17 @@ class TemplateListItem extends Component {
         globalReadClass.push("text-secondary");
       }
 
+      let deleteButton = null;
+      if (this.props.location !== 'siteflow')
+      {
+        deleteButton = (<button className="btn btn-danger float-end" onClick={this.handleDelete}><i className="fas fa-trash-alt"></i></button>);
+      }
+
       return (
         <div className="card my-4">
           <div className="card-body">
             <Link to={`/local/templates/modify/${this.props.templateData.id}`} className="btn btn-primary float-end ms-1"><i className="fas fa-edit"></i></Link>
-            <button className="btn btn-danger float-end" onClick={this.handleDelete}><i className="fas fa-trash-alt"></i></button>
+            {deleteButton}
             
             <h5 className="card-title">{name}&nbsp;
               <i className={enabledClass.join(' ')} data-bs-toggle="tooltip" data-bs-placement="top" title={this.props.templateData.active ? 'Active' : 'Disabled'}></i>

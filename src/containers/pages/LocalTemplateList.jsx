@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Link } from "react-router-dom";
+import { baseApiUrl } from '../App';
 import TemplateListItem from '../components/TemplateListItem';
 
 class LocalTemplateList extends Component {
@@ -20,7 +21,7 @@ class LocalTemplateList extends Component {
       console.log("refresh the list");
       // Simple GET request using fetch
       const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-      fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/get/all', headers)
+      fetch(`${baseApiUrl}/template/rds/get/all`, headers)
         .then(response => {
           if (response.ok) {
               return response.json()
@@ -49,7 +50,7 @@ class LocalTemplateList extends Component {
       else {
         console.log('it\'s something');
         templates = this.state.templates.data.map((item, index) => (
-          (<TemplateListItem templateData={item} key={item.id} onDelete={this.refreshList}/>)
+          (<TemplateListItem templateData={item} key={item.id} onDelete={this.refreshList} location='rds'/>)
         ));
       }
 

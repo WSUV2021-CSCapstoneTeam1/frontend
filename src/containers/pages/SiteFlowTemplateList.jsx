@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import TemplateListItem from '../components/TemplateListItem';
 import FactorySelectDropdown from '../components/FactorySelectDropdown';
+import { baseApiUrl } from '../App';
 
 class SiteFlowTemplateList extends Component {
     /*
@@ -8,19 +9,25 @@ class SiteFlowTemplateList extends Component {
     */
     constructor(props) {
         super(props);
-        this.state = { templates: [] };
+        this.state = { templates: [], factory: 'wsu-test-team-1' };
         this.onFactoryChanged = this.onFactoryChanged.bind(this);
+        this.refreshList = this.refreshList.bind(this);
     }
 
     onFactoryChanged(newFactory) {
         console.log(`SiteFlowTemplateList - new factory is ${newFactory}`);
+        this.setState({ factory: newFactory });
+        this.refreshList();
+    }
 
+
+    refreshList() {
         this.setState({ templates: [] });
 
         // Simple GET request using fetch
-        fetch('http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/siteflow/get/all', {
+        fetch(`${baseApiUrl}/template/siteflow/get/all`, {
                 mode: 'cors',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': newFactory }
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'siteflow-organization': this.state.factory }
             })
             .then(response => {
                 if (response.ok) {
@@ -55,7 +62,7 @@ class SiteFlowTemplateList extends Component {
         else {
             console.log('it\'s something');
             templates = this.state.templates.data.map((item, index) => (
-                (<TemplateListItem templateData={item} key={item._id} />)
+                (<TemplateListItem templateData={item} key={item._id} location='siteflow'/>)
             ));
         }
 

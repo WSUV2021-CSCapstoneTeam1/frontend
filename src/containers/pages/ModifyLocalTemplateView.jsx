@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { baseApiUrl } from '../App';
 
 // import BootstrapAlert from '../components/BootstrapAlert';
 
@@ -28,7 +29,7 @@ class ModifyLocalTemplateView extends Component {
         // TODO: Check if you get anything back from the response
         // Simple GET request using fetch
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
-        fetch(`http://54.191.60.209:8090/BackendApi-1.0-SNAPSHOT/api/template/rds/get?id=${inputId}`, headers)
+        fetch(`${baseApiUrl}/template/rds/get?id=${inputId}`, headers)
             .then(response => {
                if (response.ok) {
                   return response.json()
