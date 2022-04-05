@@ -14,7 +14,7 @@ class SiteFlowProductList extends Component {
     }
 
     onFactoryChanged(newFactory) {
-        console.log(`SiteFlowProductList - new factory is ${newFactory}`);
+        // console.log(`SiteFlowProductList - new factory is ${newFactory}`);
 
         this.setState({ products: [] });
 
@@ -30,7 +30,7 @@ class SiteFlowProductList extends Component {
                 throw response;
             })
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 this.setState({
                     products: data
                 });
@@ -49,11 +49,11 @@ class SiteFlowProductList extends Component {
         /* List of products from site from site */
         var products = [];
         if (this.state.products.data == null) {
-            console.log('it\'s undefined');
+            // console.log('it\'s undefined');
             products = null;
         }
         else {
-            console.log('it\'s something');
+            // console.log('it\'s something');
             products = this.state.products.data.map((item, index) => (
                 (<ProductListItem data={item} key={item._id} />)
             ));
