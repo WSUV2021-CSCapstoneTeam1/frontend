@@ -14,7 +14,7 @@ class SiteFlowTemplateList extends Component {
     }
 
     onFactoryChanged(newFactory) {
-        console.log(`SiteFlowTemplateList - new factory is ${newFactory}`);
+        // console.log(`SiteFlowTemplateList - new factory is ${newFactory}`);
 
         this.setState({ templates: [] });
 
@@ -30,7 +30,7 @@ class SiteFlowTemplateList extends Component {
                 throw response;
             })
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 this.setState({
                     templates: data
                 });
@@ -50,11 +50,11 @@ class SiteFlowTemplateList extends Component {
         /* List of templates from site from site */
         var templates;
         if (this.state.templates.data == null) {
-            console.log('it\'s undefined');
+            // console.log('it\'s undefined');
             templates = null;
         }
         else {
-            console.log('it\'s something');
+            // console.log('it\'s something');
             templates = this.state.templates.data.map((item, index) => (
                 (<TemplateListItem templateData={item} key={item._id} />)
             ));

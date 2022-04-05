@@ -38,3 +38,26 @@ describe('testing SiteFlowSKUList page', () => {
   });
 
 })
+
+describe('testing SiteFlowTemplateList page', () => {
+  
+  test("SiteFlowTemplateList page renders correctly", () => {
+    const {queryByPlaceholderText, getByText} = render(<SiteFlowTemplateList/>);
+    // page renders correctly
+    expect(getByText('Site Flow Templates')).toBeTruthy();
+    // test dropdown component
+    expect(queryByPlaceholderText('FactoryId')).toBeTruthy();
+  });
+
+})
+
+describe('testing LocalTemplateList page', () => {
+  
+  test("LocalTemplateList page renders correctly", () => {
+    const {getByText} = render(<LocalTemplateList/>, {wrapper: MemoryRouter});
+    // page renders correctly
+    expect(getByText('Local Templates')).toBeTruthy();
+  });
+  
+})
+

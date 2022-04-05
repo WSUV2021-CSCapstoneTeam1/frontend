@@ -18,7 +18,7 @@ class LocalTemplateList extends Component {
     }
   
     refreshList() {
-      console.log("refresh the list");
+      // console.log("refresh the list");
       // Simple GET request using fetch
       const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
       fetch(`${baseApiUrl}/template/rds/get/all`, headers)
@@ -29,7 +29,7 @@ class LocalTemplateList extends Component {
           throw response;
         })
         .then(data => {
-          console.log(data);
+          // console.log(data);
           this.setState({
             templates: data
           });
@@ -44,11 +44,11 @@ class LocalTemplateList extends Component {
     /* List of templates from database */
       var templates = [];
       if (this.state.templates.data == null) {
-        console.log('it\'s undefined');
+        // console.log('it\'s undefined');
         templates = null;
       }
       else {
-        console.log('it\'s something');
+        // console.log('it\'s something');
         templates = this.state.templates.data.map((item, index) => (
           (<TemplateListItem templateData={item} key={item.id} onDelete={this.refreshList}/>)
         ));
