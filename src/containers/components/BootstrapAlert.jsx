@@ -10,7 +10,7 @@ class BootstrapAlert extends Component {
         }
 
         return (
-            <div className={className}>
+            <div className={className} placeholder="BootstrapAlert">
                 {titleHtml}
                 {this.props.content}
             </div>

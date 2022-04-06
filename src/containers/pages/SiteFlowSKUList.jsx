@@ -15,7 +15,7 @@ class SiteFlowSKUList extends Component {
     }
 
     onFactoryChanged(newFactory) {
-        console.log(`SiteFlowSKUList - new factory is ${newFactory}`);
+        // console.log(`SiteFlowSKUList - new factory is ${newFactory}`);
 
         this.setState({ SKUs: [] });
 
@@ -31,7 +31,7 @@ class SiteFlowSKUList extends Component {
                 throw response;
             })
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 this.setState({
                     SKUs: data
                 });
@@ -50,11 +50,11 @@ class SiteFlowSKUList extends Component {
         /* List of products from site from site */
         var SKUs;
         if (this.state.SKUs.data == null) {
-            console.log('it\'s undefined');
+            // console.log('it\'s undefined');
             SKUs = null;
         }
         else {
-            console.log('it\'s something');
+            // console.log('it\'s something');
             SKUs = this.state.SKUs.data.map((item, index) => (
                 (<SKUListItem data={item} key={item._id} />)
             ));

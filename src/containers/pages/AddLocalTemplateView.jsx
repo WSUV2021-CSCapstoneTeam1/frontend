@@ -103,8 +103,8 @@ class AddLocalTemplateView extends Component {
             })
                 .then((response) => {
                     console.log(response);
-                console.log(`Got response from the POST request with ${response.status}`);
-                console.log(`this state is ${this.state}`);
+                    console.log(`Got response from the POST request with ${response.status}`);
+                    console.log(`this state is ${this.state}`);
                     this.setState({ responseCode: response.status });
             });
         }
@@ -118,15 +118,12 @@ class AddLocalTemplateView extends Component {
         let alert = null;
         if (this.state.responseCode != null) {
             if (this.state.responseCode === 200) {
-                // alert = (<BootstrapAlert alertType='success' content={`Template ${inEditMode ? 'edited' : 'created'} successfully!`} />);
                 alert = (<Redirect to="/local/templates" />);
             }
             else {
                 alert = (<BootstrapAlert alertType='danger' content={`Template ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
             }
         }
-
-        
 
         console.log(this.state.data);
 
@@ -210,7 +207,6 @@ class AddLocalTemplateView extends Component {
                     <div className="mb-3">
                         <button type="submit" className="btn btn-primary">{inEditMode ? 'Edit': 'Add'} Template</button>
                     </div>
-
 
                 </form>
             </div>
