@@ -57,7 +57,7 @@ class FactorySelectDropdown extends Component {
         return (
             <div>
                 <label htmlFor="factoryId" className="form-label">Factory</label>
-                <select className="form-select" id="factoryId" name="factoryId" onChange={this.onFactoryChanged} value={this.state.currentFactory}>
+                <select className="form-select" id="factoryId" name="factoryId" placeholder="FactoryId" onChange={this.onFactoryChanged} value={this.state.currentFactory}>
                     {factories}
                 </select>
             </div>

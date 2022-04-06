@@ -52,9 +52,7 @@ class RootPage extends Component {
               <Route path="/siteflow/sku" component={SiteFlowSKUList} />
               <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
               <Route path="/siteflow/order" component={AddSiteFlowOrderView} />
-              {/*Testing*/}
               <Route path="/local/templates/modify/:id" component={AddLocalTemplateView} />
-              {/*Testing*/}
               <Route path="/local/templates/add" component={AddLocalTemplateView} />
               <Route path="/local/templates" component={LocalTemplateList} />
               <Route path="/" component={Home} />
