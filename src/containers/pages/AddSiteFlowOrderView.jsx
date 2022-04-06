@@ -150,8 +150,8 @@ class AddSiteOrderSKUView extends Component {
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
-                    <h4 className='mt-4'>Shipping Address</h4>
 
+                    <h4 className='mt-4'>Shipping Address</h4>
 
                     {/* Shipping Name */}
                     <div className="mb-3">

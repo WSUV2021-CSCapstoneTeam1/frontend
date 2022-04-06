@@ -28,18 +28,32 @@ class RootPage extends Component {
       <div>
 
         {/* Navigation bar */}
-        <nav className="navbar fw-bold navbar-light bg-light navbar-expand-md">
+        <nav className="navbar fw-bold navbar-light bg-light navbar-expand-sm">
             <a href="/" className="navbar-brand">Factory Configurator</a>
             <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="navbar-collapse collapse" id="navbar">
               <ul className="navbar-nav">
-                    <li className="nav-item fw-light"><a href="/siteflow/products" className="nav-link">Site Flow Products</a></li>
-                    <li className="nav-item fw-light"><a href="/siteflow/sku" className="nav-link">Site Flow SKUs</a></li>
-                    <li className="nav-item fw-light"><a href="/siteflow/templates" className="nav-link">Site Flow Templates</a></li>
-                    <li className="nav-item fw-light"><a href="/local/templates" className="nav-link">Local Templates</a></li>
-                    <li className="nav-item fw-light"><a href="/siteflow/order" className="nav-link">Order</a></li>
+                    <li className="nav-item dropdown">
+                            <button type="button" className="btn dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+                              Site Flow
+                            </button>
+                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a className="dropdown-item fw-light" href="/siteflow/products">Products</a>
+                              <a className="dropdown-item fw-light" href="/siteflow/sku">SKUs</a>
+                              <a className="dropdown-item fw-light" href="/siteflow/templates">Templates</a>
+                              <a className="dropdown-item fw-light" href="/siteflow/order">Order</a>
+                            </div>
+                    </li>
+                    <li className="nav-item dropdown">
+                            <button type="button" className="btn dropdown-toggle" id="navbarDropdown" data-toggle="dropdown">
+                              Local
+                            </button>
+                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a className="dropdown-item fw-light" href="/local/templates">Templates</a>
+                            </div>
+                    </li>
                 </ul>
             </div>
         </nav>

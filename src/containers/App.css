@@ -49,3 +49,10 @@
 .switches {
     padding: 20px;
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    border-color: #f8f9fa;
+    background-color: #f8f9fa;
+ }
