@@ -14,9 +14,8 @@ import {
     generateCompanyName
 } from '../assistants/Generators';
 import { baseApiUrl } from '../App';
-/*
-TODO: SKU select dropdown needs to be told which factory to pull from!
-*/
+
+
 class AddSiteOrderSKUView extends Component {
     /*
     This is the page where a user can create and submit an order to Site Flow.
@@ -51,7 +50,7 @@ class AddSiteOrderSKUView extends Component {
                 name: this.state.factory
             },
             orderData: {
-                sourceOrderId: this.orderID.current.value,
+                sourceOrderId: generateID(),
                 items: [
                     {
                         sku: this.state.sku,
@@ -115,6 +114,7 @@ class AddSiteOrderSKUView extends Component {
     }
 
     render() {
+        console.log('render!!');
         // Figure out what alert to display
         let alert = null;
         if (this.state.responseCode != null) {
@@ -124,6 +124,13 @@ class AddSiteOrderSKUView extends Component {
                 alert = (<BootstrapAlert alertType='danger' content={`Order failed with code ${this.state.responseCode}`} />);
             }
         }
+
+        // Name
+        // TODO: check if current is null.
+        // If so, then don't add any class to the form
+        // If not:
+        //  Check if string length is greater than 0 and apply checkmark if so
+        let shippingNameExists = this.shippingName.current !== null;
 
         return (
             <div>
@@ -137,13 +144,6 @@ class AddSiteOrderSKUView extends Component {
                         <div className="invalid-feedback">Please fill out this field.</div>
                     </div>
 
-                    {/* Order ID */}
-                    <div className="mb-3">
-                        <label htmlFor="orderID" className="form-label">Order ID</label>
-                        <input type="text" className="form-control" id="orderID" name="orderID" ref={this.orderID} defaultValue={generateID()} required></input>
-                        <div className="invalid-feedback">Please fill out this field.</div>
-                    </div>
-
                     {/* SKU */}
                     <div className="mb-3">
                         <SKUSelectDropdown factory={this.state.factory} onSKUChanged={this.onSKUChanged} />
@@ -152,7 +152,6 @@ class AddSiteOrderSKUView extends Component {
 
 
                     <h4 className='mt-4'>Shipping Address</h4>
-
                     {/* Shipping Name */}
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Name</label>
@@ -203,14 +202,29 @@ class AddSiteOrderSKUView extends Component {
 
                     {/* Add Button */}
                     <div className="mb-3">
-                        <button type="submit" className="btn btn-primary">Place Order</button>
+                        <button type="submit" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal">Place Order</button>
                     </div>
-
-
                 </form>
 
+                <div className="modal fade" id="orderModal" tabIndex="-1" aria-labelledby="orderModal" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Thank you for your order</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        Here are details about the order: Success or fail? If success, what is the Order ID?
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
                 <div className="AddSiteOrderSKUView" ref={el => (this.div = el)}>
-                    {(function () {
+                    {/* {(function () {
                         window.addEventListener('load', function () {
                             var forms = document.getElementsByClassName('needs-validation');
                             // eslint-disable-next-line
@@ -224,7 +238,7 @@ class AddSiteOrderSKUView extends Component {
                                 }, false);
                             });
                         }, false);
-                    })()}
+                    })()} */}
                 </div>
             </div>
         );

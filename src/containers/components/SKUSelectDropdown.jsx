@@ -86,7 +86,6 @@ class SKUSelectDropdown extends Component {
         var skuElements = [];
         var skuList = this.state.allFactoriesAndSKUs[this.props.factory];
         if (skuList == null) {
-            console.log('no SKUs');
             skuElements = null;
         }
         else {
@@ -95,10 +94,25 @@ class SKUSelectDropdown extends Component {
             ));
         }
 
+        let currentSkuIsValid = false;
+        let validation = '';
+        if (skuList !== undefined && skuList.data !== null) {
+            let skuNames = skuList.data.map((i) => i.code);
+            currentSkuIsValid = skuNames.includes(this.state.currentSKU);
+
+            if (this.state.currentSKU === '') {
+                validation = '';
+            } else if (currentSkuIsValid) {
+                validation = 'is-valid';
+            } else {
+                validation = 'is-invalid';
+            }
+        }
+
         return (
             <div>
                 <label htmlFor="SKUId" className="form-label">SKU</label>
-                <input className="form-control" list="SKUIdOptions" id="SKUId" onChange={this.onSKUChanged}></input>
+                <input className={`form-control ${validation}`} list="SKUIdOptions" id="SKUId" onChange={this.onSKUChanged}></input>
                 <datalist id="SKUIdOptions" name="SKUIdOptions" value={this.state.currentSKU}>
                     {skuElements}
                 </datalist>
