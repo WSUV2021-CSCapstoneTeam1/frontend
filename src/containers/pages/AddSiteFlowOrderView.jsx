@@ -3,7 +3,7 @@ import React from 'react';
 // import { Redirect } from 'react-router';
 import FactorySelectDropdown from '../components/FactorySelectDropdown';
 import SKUSelectDropdown from '../components/SKUSelectDropdown';
-import BootstrapAlert from '../components/BootstrapAlert';
+// import BootstrapAlert from '../components/BootstrapAlert';
 
 import {
     generateID,
@@ -86,8 +86,10 @@ class AddSiteOrderSKUView extends Component {
             }
         };
 
-        console.log(JSON.stringify(newOrderData));
-        console.log('Going to make the POST request...');
+        // console.log(JSON.stringify(newOrderData));
+        // console.log('Going to make the POST request...');
+        this.setState({orderID: newOrderData.orderData.sourceOrderId});
+        // console.log(this.state.orderID);
         fetch(`${baseApiUrl}/order/siteflow/post`, {
             mode: 'cors',
             method: 'POST',
@@ -116,12 +118,18 @@ class AddSiteOrderSKUView extends Component {
     render() {
         console.log('render!!');
         // Figure out what alert to display
-        let alert = null;
+        // let alert = null;
+        let responseHdr = "";
+        let responseMsg = "";
         if (this.state.responseCode != null) {
             if (this.state.responseCode === 201) {
-                alert = (<BootstrapAlert alertType='success' content={`Order posted successfully!`} />);
+                responseHdr = "Thank you for your order"
+                responseMsg = `Your order was successful!\nYour Order ID is ${this.state.orderID}.`
+                /* alert = (<BootstrapAlert alertType='success' content={`Order posted successfully!`} />); */
             } else {
-                alert = (<BootstrapAlert alertType='danger' content={`Order failed with code ${this.state.responseCode}`} />);
+                responseHdr = "Uh-oh. Something went wrong."
+                responseMsg = "Your order was unsuccessful. Please try again later."
+                /* alert = (<BootstrapAlert alertType='danger' content={`Order failed with code ${this.state.responseCode}`} />); */
             }
         }
 
@@ -130,7 +138,7 @@ class AddSiteOrderSKUView extends Component {
         // If so, then don't add any class to the form
         // If not:
         //  Check if string length is greater than 0 and apply checkmark if so
-        let shippingNameExists = this.shippingName.current !== null;
+        // let shippingNameExists = this.shippingName.current !== null;
 
         return (
             <div>
@@ -198,7 +206,7 @@ class AddSiteOrderSKUView extends Component {
                     </div>
 
                     {/* Result alert */}
-                    {alert}
+                    {/* alert */ }
 
                     {/* Add Button */}
                     <div className="mb-3">
@@ -210,11 +218,11 @@ class AddSiteOrderSKUView extends Component {
                 <div className="modal-dialog">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Thank you for your order</h5>
+                        <h5 className="modal-title" id="exampleModalLabel">{responseHdr}</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        Here are details about the order: Success or fail? If success, what is the Order ID?
+                        {responseMsg}
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
