@@ -60,6 +60,8 @@ function App() {
                               </div>
                       </li>
                       <li className="nav-item dropdown" id="navbarMode">
+
+
                       <ThemeContext.Consumer>
                       {({ changeTheme }) => (
                                     <button type="button" className="btn"
@@ -81,7 +83,7 @@ function App() {
             {/* React switches */}
           <div className="container mt-3">
               <Switch>
-                <Route path="/siteflow/products" component={SiteFlowProductList} />
+                <Route path="/siteflow/products" component={SiteFlowProductList}/>
                 <Route path="/siteflow/sku/add" component={AddSiteFlowSKUView} />
                 <Route path="/siteflow/sku" component={SiteFlowSKUList} />
                 <Route path="/siteflow/templates" component={SiteFlowTemplateList} />
@@ -89,8 +91,7 @@ function App() {
                 <Route path="/local/templates/modify/:id" component={AddLocalTemplateView} />
                 <Route path="/local/templates/add" component={AddLocalTemplateView} />
                 <Route path="/local/templates" component={LocalTemplateList} />
-                <Route path="/" component={Home} />
-
+                <Route path="/" component={Home} />             
             </Switch>
           </div>
         </div>

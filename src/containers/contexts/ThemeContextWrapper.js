@@ -5,25 +5,34 @@ export default function ThemeContextWrapper(props) {
   const [theme, setTheme] = useState(themes.light);
 
   function changeTheme(theme) {
+    console.log("set theme"); 
+
+    console.log("Prev theme = " + localStorage.getItem("mode") + " This theme = " + theme); 
+    (theme === themes.light) ? localStorage.setItem("mode", themes.light): localStorage.setItem("mode", themes.dark)
+    console.log("Just put in local storage: " + localStorage.getItem("mode"))
     setTheme(theme);
+    
   }
 
   useEffect(() => {
-    switch (theme) {
+    console.log("Using effect")
+    switch (localStorage.getItem("mode")) {
       case themes.dark:
         document.body.classList.add('dark-content');
         break;
       case themes.light:
-      default:
         document.body.classList.remove('dark-content');
-        localStorage.setItem("mode", "light");
+        break; 
+      default:
         break;
     }
   }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme: theme, changeTheme: changeTheme }}>
+      {console.log("Hello!")}
       {props.children}
+
     </ThemeContext.Provider>
   );
 }

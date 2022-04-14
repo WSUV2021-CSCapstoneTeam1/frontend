@@ -9,12 +9,12 @@ class SiteFlowProductList extends Component {
     */
     constructor(props) {
         super(props);
-        this.state = { products: [] };
+        this.state = { products: [] , isLight: Boolean};
         this.onFactoryChanged = this.onFactoryChanged.bind(this);
     }
 
     onFactoryChanged(newFactory) {
-        // console.log(`SiteFlowProductList - new factory is ${newFactory}`);
+        // console.log(`SiteFlowProductList - new factory is ${newFactory}`); 
 
         this.setState({ products: [] });
 
@@ -42,10 +42,15 @@ class SiteFlowProductList extends Component {
 
     componentDidMount() {
         // TODO: get default factory instead of hardcoding team 1 factory
+        // console.log(this.context); 
+
         this.onFactoryChanged('wsu-test-team-1');
     }
 
     render() {
+
+        // console.log(this.context)
+
         /* List of products from site from site */
         var products = [];
         if (this.state.products.data == null) {
@@ -74,6 +79,7 @@ class SiteFlowProductList extends Component {
         }
 
         return (
+
             <div>
                 <h2>Site Flow Products</h2>
                 <p>These are the products loaded from Site Flow.</p>
