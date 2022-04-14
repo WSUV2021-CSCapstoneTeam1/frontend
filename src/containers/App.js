@@ -26,12 +26,12 @@ function Home() {
 }
 
 function App() {
-  const [darkMode, setDarkMode] = React.useState(true);
+  const [darkMode, setDarkMode] = React.useState((localStorage.getItem("mode") === themes.dark) ? false: true);
 
   return (
         <Router>
         <div>
-
+          {}
           {/* Navigation bar */}
           <nav className="navbar navbar-custom fw-bold navbar-light bg-light navbar-expand-sm">
               <a href="/" className="navbar-brand" id="nav-title">Factory Configurator</a>
@@ -61,7 +61,6 @@ function App() {
                       </li>
                       <li className="nav-item dropdown" id="navbarMode">
 
-
                       <ThemeContext.Consumer>
                       {({ changeTheme }) => (
                                     <button type="button" className="btn"
@@ -70,6 +69,8 @@ function App() {
                                         changeTheme(darkMode ? themes.dark : themes.light);
                                       }}
                                     >
+                                      
+                                      {console.log("From nav " + localStorage.getItem("mode"))}
                                       <div><i className={darkMode ? 'fas fa-moon' : 'fas fa-sun'}></i></div>
                                       <span className="d-lg-none d-md-block"></span>
                                     </button>

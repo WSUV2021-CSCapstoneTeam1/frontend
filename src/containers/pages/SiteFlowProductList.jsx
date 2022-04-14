@@ -9,7 +9,7 @@ class SiteFlowProductList extends Component {
     */
     constructor(props) {
         super(props);
-        this.state = { products: [] , isLight: Boolean};
+        this.state = { products: [] };
         this.onFactoryChanged = this.onFactoryChanged.bind(this);
     }
 
