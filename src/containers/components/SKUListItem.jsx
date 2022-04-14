@@ -23,13 +23,13 @@ class SKUListItem extends Component {
       }
 
       return (
-        <div className="card my-4">
+        <div className="card my-4" id="display-card">
           <div className="card-body">
             <h5 className="card-title">{this.props.data.code}&nbsp;
               <i className={enabledClass.join(' ')} data-bs-toggle="tooltip" data-bs-placement="top" title={this.props.data.active ? 'Active' : 'Disabled'}></i>
             </h5>
             <h6 className="card-subtitle mb-2 text-muted">Product ID {this.props.data.accountId}</h6>
-            <p className="card-text">{this.props.data.description}</p>
+            <p className="card-text text-muted">{this.props.data.description}</p>
             <span className="badge bg-secondary">{this.props.data.extension}</span>
             
           </div>

@@ -65,7 +65,7 @@ class TemplateListItem extends Component {
       }
 
       return (
-        <div className="card my-4">
+        <div className="card my-4" id="display-card">
           <div className="card-body">
             <Link to={`/local/templates/modify/${this.props.templateData.id}`} className="btn btn-primary float-end ms-1"><i className="fas fa-edit"></i></Link>
             {deleteButton}
@@ -76,7 +76,7 @@ class TemplateListItem extends Component {
               {/* <i className={globalReadClass.join(' ')} data-bs-toggle="tooltip" data-bs-placement="top" title={this.props.templateData.active ? 'Global Read' : 'No Global Read'}></i> */}
             </h5>
             <h6 className="card-subtitle mb-2 text-muted">Account ID {this.props.templateData.accountId}</h6>
-            <p className="card-text">{this.props.templateData.text}</p>
+            <p className="card-text text-muted">{this.props.templateData.text}</p>
             <span className="badge bg-secondary">{this.props.templateData.extension}</span>
             
           </div>
