@@ -1,19 +1,11 @@
 import { render, screen, fireEvent, getByText } from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom'
-import userEvent from "@testing-library/user-event";
 
 // import pages 
 import SiteFlowProductList from "./pages/SiteFlowProductList";
 import SiteFlowSKUList from "./pages/SiteFlowSKUList";
 import SiteFlowTemplateList from "./pages/SiteFlowTemplateList";
 import LocalTemplateList from './pages/LocalTemplateList';
-import AddLocalTemplateView from "./pages/AddLocalTemplateView";
-import AddSiteFlowSKUView from "./pages/AddSiteFlowSKUView";
-import AddSiteFlowOrderView from "./pages/AddSiteFlowOrderView";
-
-// import components
-import FactorySelectDropdown from './components/FactorySelectDropdown';
-import BootstrapAlert from './components/BootstrapAlert'; 
 
 describe('testing SiteFlowProductList page', () => {
   

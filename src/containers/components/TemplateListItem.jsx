@@ -14,18 +14,18 @@ class TemplateListItem extends Component {
     }
   
     handleDelete() {
-      console.log("time to delete a template");
-      console.log(this.state.templateData);
+      // console.log("time to delete a template");
+      // console.log(this.state.templateData);
 
       let id = this.state.templateData.id;
       let fullUrl = `${baseApiUrl}/template/${this.props.location}/delete?id=${id}`;
-      console.log(fullUrl);
+      // console.log(fullUrl);
       fetch(fullUrl, {
         method: 'DELETE'
       })
         .then((response) => {
-          console.log(`Response from server trying to delete with ID ${id}:`);
-          console.log(response);
+          // console.log(`Response from server trying to delete with ID ${id}:`);
+          // console.log(response);
           if (this.props.onDelete) this.props.onDelete();
       })
     }

@@ -12,8 +12,7 @@ class FactorySelectDropdown extends Component {
     }
 
     componentDidMount() {
-        // TODO: fetch the list of factories from the backend, and populate
-        // the options available
+
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
             fetch(`${baseApiUrl}/team/rds/get/all`, headers)
               .then(response => {

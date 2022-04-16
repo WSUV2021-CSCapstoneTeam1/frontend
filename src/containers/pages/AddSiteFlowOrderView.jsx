@@ -1,9 +1,7 @@
 import { Component } from 'react';
 import React from 'react';
-// import { Redirect } from 'react-router';
 import FactorySelectDropdown from '../components/FactorySelectDropdown';
 import SKUSelectDropdown from '../components/SKUSelectDropdown';
-// import BootstrapAlert from '../components/BootstrapAlert';
 
 import {
     generateID,
@@ -86,10 +84,7 @@ class AddSiteOrderSKUView extends Component {
             }
         };
 
-        // console.log(JSON.stringify(newOrderData));
-        // console.log('Going to make the POST request...');
         this.setState({orderID: newOrderData.orderData.sourceOrderId});
-        // console.log(this.state.orderID);
         fetch(`${baseApiUrl}/order/siteflow/post`, {
             mode: 'cors',
             method: 'POST',
@@ -116,20 +111,17 @@ class AddSiteOrderSKUView extends Component {
     }
 
     render() {
-        console.log('render!!');
+
         // Figure out what alert to display
-        // let alert = null;
         let responseHdr = "";
         let responseMsg = "";
         if (this.state.responseCode != null) {
             if (this.state.responseCode === 201) {
                 responseHdr = "Thank you for your order"
                 responseMsg = `Your order was successful!\nYour Order ID is ${this.state.orderID}.`
-                /* alert = (<BootstrapAlert alertType='success' content={`Order posted successfully!`} />); */
             } else {
                 responseHdr = "Uh-oh. Something went wrong."
                 responseMsg = "Your order was unsuccessful. Please try again later."
-                /* alert = (<BootstrapAlert alertType='danger' content={`Order failed with code ${this.state.responseCode}`} />); */
             }
         }
 
@@ -232,21 +224,6 @@ class AddSiteOrderSKUView extends Component {
                 </div>
 
                 <div className="AddSiteOrderSKUView" ref={el => (this.div = el)}>
-                    {/* {(function () {
-                        window.addEventListener('load', function () {
-                            var forms = document.getElementsByClassName('needs-validation');
-                            // eslint-disable-next-line
-                            var validation = Array.prototype.filter.call(forms, function (form) {
-                                form.addEventListener('submit', function (event) {
-                                    if (form.checkValidity() === false) {
-                                        event.preventDefault();
-                                        event.stopPropagation();
-                                    }
-                                    form.classList.add('was-validated');
-                                }, false);
-                            });
-                        }, false);
-                    })()} */}
                 </div>
             </div>
         );

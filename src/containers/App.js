@@ -31,7 +31,6 @@ function App() {
   return (
         <Router>
         <div>
-          {}
           {/* Navigation bar */}
           <nav className="navbar navbar-custom fw-bold navbar-light bg-light navbar-expand-sm">
               <a href="/" className="navbar-brand" id="nav-title">Factory Configurator</a>

@@ -5,7 +5,6 @@ class SKUSelectDropdown extends Component {
     /*
     This dropdown allows a user to select a SKU when they're submitting an order
     */
-
     constructor(props) {
         super(props);
         this.state = { currentSKU: '', allFactoriesAndSKUs: {} };

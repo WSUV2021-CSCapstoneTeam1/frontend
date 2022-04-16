@@ -14,7 +14,6 @@ class SiteFlowProductList extends Component {
     }
 
     onFactoryChanged(newFactory) {
-        // console.log(`SiteFlowProductList - new factory is ${newFactory}`); 
 
         this.setState({ products: [] });
 
@@ -30,7 +29,6 @@ class SiteFlowProductList extends Component {
                 throw response;
             })
             .then(data => {
-                // console.log(data);
                 this.setState({
                     products: data
                 });
@@ -42,33 +40,25 @@ class SiteFlowProductList extends Component {
 
     componentDidMount() {
         // TODO: get default factory instead of hardcoding team 1 factory
-        // console.log(this.context); 
-
         this.onFactoryChanged('wsu-test-team-1');
     }
 
     render() {
 
-        // console.log(this.context)
-
         /* List of products from site from site */
         var products = [];
         if (this.state.products.data == null) {
-            // console.log('it\'s undefined');
             products = null;
         }
         else {
-            // console.log('it\'s something');
             products = this.state.products.data.map((item, index) => (
                 (<ProductListItem data={item} key={item._id} />)
             ));
         }
 
-        // Provides a spinning indicator while in the process of retrieving
-        // information. 
+        // Provides a spinning indicator while in the process of retrieving information. 
         var spinIndicator = null;
         if (products == null) {
-            // https://getbootstrap.com/docs/5.1/components/spinners/
             spinIndicator = (<div className='d-flex justify-content-center'>
                 <div className='spinner-border' role='status'>
                     <span className='visually-hidden'>Loading...</span>
@@ -79,7 +69,6 @@ class SiteFlowProductList extends Component {
         }
 
         return (
-
             <div>
                 <h2>Site Flow Products</h2>
                 <p>These are the products loaded from Site Flow.</p>

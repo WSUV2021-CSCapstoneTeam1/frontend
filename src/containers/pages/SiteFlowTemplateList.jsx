@@ -66,11 +66,9 @@ class SiteFlowTemplateList extends Component {
             ));
         }
 
-        // Provides a spinning indicator while in the process of retrieving
-        // information. 
+        // Provides a spinning indicator while in the process of retrieving information. 
         var spinIndicator = null;
         if (templates == null) {
-            // https://getbootstrap.com/docs/5.1/components/spinners/
             spinIndicator = (<div className='d-flex justify-content-center'>
                 <div className='spinner-border' role='status'>
                     <span className='visually-hidden'>Loading...</span>

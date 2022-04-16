@@ -1,8 +1,6 @@
 import { Component } from 'react';
 import { baseApiUrl } from '../App';
 
-// import BootstrapAlert from '../components/BootstrapAlert';
-
 class ModifyLocalTemplateView extends Component {
     /*
     This is the page that allows you to modify a template
@@ -20,13 +18,10 @@ class ModifyLocalTemplateView extends Component {
     handleSearch(e) {
         e.preventDefault();
 
-        // TODO: need to sanitize input
         var inputId = e.target.templateId.value;
 
-        console.log(`GET request to search id=${inputId}`);
+        // console.log(`GET request to search id=${inputId}`);
 
-
-        // TODO: Check if you get anything back from the response
         // Simple GET request using fetch
         const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
         fetch(`${baseApiUrl}/template/rds/get?id=${inputId}`, headers)
@@ -62,18 +57,18 @@ class ModifyLocalTemplateView extends Component {
 
             {/* Search Template Handler */}
             <form onSubmit={this.handleSearch}>
+
                 {/* Input ID of template */}
                 <div className="mb-3">
                     <label htmlFor="templateId" className="form-label">Template ID</label>
                     <input type="text" className="form-control" id="templateId" name="templateId"></input>
                 </div>
+
                 {/* Add Button */}
                 <div className="mb-3">
                     <button type="submit" className="btn btn-primary">Delete Template</button>
                 </div>
             </form>
-
-            {/* Show Template Data in Fields */}
 
         </div>
         );

@@ -5,8 +5,6 @@ import { baseApiUrl } from '../App';
 import BootstrapAlert from '../components/BootstrapAlert';
 import FactorySelectDropdown from '../components/FactorySelectDropdown';
 
-// TODO: Select destination factory!
-
 class AddSiteFlowSKUView extends Component {
     /*
     This is the page where a user can create and submit a SKU to Site Flow.
@@ -33,7 +31,7 @@ class AddSiteFlowSKUView extends Component {
             packageId: null,
             code: e.target.skuCode.value,
             description: e.target.description.value,
-            productId: e.target.productId.value, // "615dc2a3628d1517e80467e5" why all the same?
+            productId: e.target.productId.value, 
             active: e.target.active.checked,
             maxItems: e.target.maxItems.value,
             minSLA: e.target.minSLA.value,
@@ -152,7 +150,6 @@ class AddSiteFlowSKUView extends Component {
                     </div>
 
                     {/* ProductId */}
-                    {/* Need to get information on all products - this is temp */}
                     <div className="mb-3">
                         <label htmlFor="productId" className="form-label">Products</label>
                         <select className="form-select" id="productId" name="productId" defaultValue={ inEditMode ? this.state.data.productId : 'html'}>
@@ -191,7 +188,6 @@ class AddSiteFlowSKUView extends Component {
                 {(function() {
                   window.addEventListener('load', function() {
                     var forms = document.getElementsByClassName('needs-validation');
-                    // eslint-disable-next-line
                     var validation = Array.prototype.filter.call(forms, function(form) {
                       form.addEventListener('submit', function(event) {
                         if (form.checkValidity() === false) {
