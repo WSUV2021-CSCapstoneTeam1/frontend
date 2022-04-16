@@ -116,7 +116,7 @@ class AddSiteOrderSKUView extends Component {
     }
 
     render() {
-        console.log('render!!');
+        // console.log('render!!');
         // Figure out what alert to display
         // let alert = null;
         let responseHdr = "";

@@ -50,7 +50,7 @@ class ModifyLocalTemplateView extends Component {
 
     handleModify(e) {
         e.preventDefault();
-        console.log("We are submitting!");
+        // console.log("We are submitting!");
     }
 
     render() {
