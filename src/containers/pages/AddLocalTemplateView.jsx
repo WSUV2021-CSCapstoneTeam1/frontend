@@ -1,8 +1,7 @@
 import { Component } from 'react';
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
 import { baseApiUrl } from '../App';
-
-import BootstrapAlert from '../components/BootstrapAlert';
+// import BootstrapAlert from '../components/BootstrapAlert';
 
 class AddLocalTemplateView extends Component {
     /*
@@ -47,7 +46,7 @@ class AddLocalTemplateView extends Component {
         }
         else
         {
-            console.log("make a new one");
+            // console.log("make a new one");
             this.setState({ mode: 'new' });
         }
     }
@@ -71,8 +70,8 @@ class AddLocalTemplateView extends Component {
 
         if (this.state.mode === 'new')
         {
-            console.log(JSON.stringify(newTemplateData));
-            console.log('Going to make the POST request...');
+            // console.log(JSON.stringify(newTemplateData));
+            // console.log('Going to make the POST request...');
     
             fetch(`${baseApiUrl}/template/rds/post`, {
                 method: 'POST',
@@ -95,7 +94,7 @@ class AddLocalTemplateView extends Component {
             console.log('Going to make the POST request...');
     
             fetch(`${baseApiUrl}/template/rds/update?id=${this.state.id}`, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -103,8 +102,8 @@ class AddLocalTemplateView extends Component {
             })
                 .then((response) => {
                     console.log(response);
-                    console.log(`Got response from the POST request with ${response.status}`);
-                    console.log(`this state is ${this.state}`);
+                    // console.log(`Got response from the POST request with ${response.status}`);
+                    // console.log(`this state is ${this.state}`);
                     this.setState({ responseCode: response.status });
             });
         }
@@ -114,14 +113,22 @@ class AddLocalTemplateView extends Component {
     render() {
         let inEditMode = this.state.mode === 'edit';
 
+        let responseHdr = "";
+
         // Figure out what alert to display
-        let alert = null;
+        // let alert = null;
+        console.log(this.state.responseCode)
         if (this.state.responseCode != null) {
             if (this.state.responseCode === 200) {
-                alert = (<Redirect to="/local/templates" />);
+                // alert = (<Redirect to="/local/templates" />);
+                // data-bs-dismiss="modal"
+                responseHdr = `Template was successfully ${inEditMode ? 'edited' : 'created'}`
+            }
+            else if (this.state.responseCode === 201) {
+                responseHdr = `Template was successfully ${inEditMode ? 'edited' : 'created'}`
             }
             else {
-                alert = (<BootstrapAlert alertType='danger' content={`Template ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
+                // alert = (<BootstrapAlert alertType='danger' content={`Template ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
             }
         }
 
@@ -201,14 +208,27 @@ class AddLocalTemplateView extends Component {
                     
                     
                     {/* Result alert */}
-                    {alert}
+                    {/* alert */}
                     
                     {/* Add Button */}
                     <div className="mb-3">
-                        <button type="submit" className="btn btn-primary">{inEditMode ? 'Edit': 'Add'} Template</button>
+                        <button type="submit" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#templateModal">{inEditMode ? 'Edit': 'Add'} Template</button>
                     </div>
 
                 </form>
+
+                <div className="modal fade" id="templateModal" tabIndex="-1" aria-labelledby="templateModal" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">{responseHdr}</h5>
+                        </div>
+                        <div className="modal-footer">
+                            <a href="/local/templates" className="btn btn-secondary">Okay</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             );
         }
