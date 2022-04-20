@@ -111,7 +111,7 @@ class SKUSelectDropdown extends Component {
         return (
             <div>
                 <label htmlFor="SKUId" className="form-label">SKU</label>
-                <input className={`form-control ${validation}`} list="SKUIdOptions" id="SKUId" onChange={this.onSKUChanged}></input>
+                <input className={`form-control ${validation}`} list="SKUIdOptions" id="SKUId" onChange={this.onSKUChanged} required></input>
                 <datalist id="SKUIdOptions" name="SKUIdOptions" value={this.state.currentSKU}>
                     {skuElements}
                 </datalist>

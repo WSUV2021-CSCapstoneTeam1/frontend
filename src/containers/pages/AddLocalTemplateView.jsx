@@ -82,16 +82,16 @@ class AddLocalTemplateView extends Component {
             })
                 .then((response) => {
                     console.log(response);
-                console.log(`Got response from the POST request with ${response.status}`);
-                console.log(`this state is ${this.state}`);
+                // console.log(`Got response from the POST request with ${response.status}`);
+                // console.log(`this state is ${this.state}`);
                 this.setState({ responseCode: response.status });
             });
         }
 
         else if (this.state.mode === 'edit')
         {
-            console.log(JSON.stringify(newTemplateData));
-            console.log('Going to make the POST request...');
+            // console.log(JSON.stringify(newTemplateData));
+            // console.log('Going to make the POST request...');
     
             fetch(`${baseApiUrl}/template/rds/update?id=${this.state.id}`, {
                 method: 'PUT',
@@ -101,7 +101,7 @@ class AddLocalTemplateView extends Component {
                 body: JSON.stringify(newTemplateData)
             })
                 .then((response) => {
-                    console.log(response);
+                    // console.log(response);
                     // console.log(`Got response from the POST request with ${response.status}`);
                     // console.log(`this state is ${this.state}`);
                     this.setState({ responseCode: response.status });
@@ -129,6 +129,7 @@ class AddLocalTemplateView extends Component {
             }
             else {
                 // alert = (<BootstrapAlert alertType='danger' content={`Template ${inEditMode ? 'edit' : 'creation'} failed with code ${this.state.responseCode}`} />);
+                responseHdr = `There was an error ${inEditMode ? 'editing' : 'creating'} your template. Try again later.`
             }
         }
 
